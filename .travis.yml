@@ -1,0 +1,4 @@
+language: java
+before_install: cd PRM-Parent
+jdk:
+  - oraclejdk8
