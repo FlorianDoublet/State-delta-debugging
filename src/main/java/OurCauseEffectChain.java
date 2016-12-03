@@ -1,0 +1,13 @@
+import fr.univ_lille1.m2iagl.dd.CauseEffectChain;
+import fr.univ_lille1.m2iagl.dd.ChainElement;
+
+import java.util.List;
+
+/**
+ * Created by flori on 03/12/2016.
+ */
+public class OurCauseEffectChain implements CauseEffectChain {
+    public List<ChainElement> getChain() {
+        return null;
+    }
+}
