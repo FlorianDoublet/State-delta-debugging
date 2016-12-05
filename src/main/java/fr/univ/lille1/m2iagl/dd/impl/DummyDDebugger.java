@@ -1,8 +1,8 @@
-package fr.univ_lille1.m2iagl.dd.impl;
+package fr.univ.lille1.m2iagl.dd.impl;
 
-import fr.univ_lille1.m2iagl.dd.CauseEffectChain;
-import fr.univ_lille1.m2iagl.dd.Challenge;
-import fr.univ_lille1.m2iagl.dd.DDebugger;
+import fr.univ.lille1.m2iagl.dd.CauseEffectChain;
+import fr.univ.lille1.m2iagl.dd.Challenge;
+import fr.univ.lille1.m2iagl.dd.DDebugger;
 
 public class DummyDDebugger implements DDebugger<String> {
 

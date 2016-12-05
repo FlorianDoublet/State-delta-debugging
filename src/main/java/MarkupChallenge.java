@@ -1,7 +1,7 @@
-import fr.univ_lille1.m2iagl.dd.Challenge;
-
 import java.util.Arrays;
 import java.util.List;
+
+import fr.univ.lille1.m2iagl.dd.Challenge;
 
 /**
  * Created by FlorianDoublet on 03/12/2016.

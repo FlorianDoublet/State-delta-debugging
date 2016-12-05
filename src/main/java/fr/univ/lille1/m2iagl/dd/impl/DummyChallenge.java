@@ -1,9 +1,9 @@
-package fr.univ_lille1.m2iagl.dd.impl;
-
-import fr.univ_lille1.m2iagl.dd.Challenge;
+package fr.univ.lille1.m2iagl.dd.impl;
 
 import java.util.Arrays;
 import java.util.List;
+
+import fr.univ.lille1.m2iagl.dd.Challenge;
 
 public class DummyChallenge implements Challenge {
 

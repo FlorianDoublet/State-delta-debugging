@@ -1,4 +1,4 @@
-package fr.univ_lille1.m2iagl.dd;
+package fr.univ.lille1.m2iagl.dd;
 
 /**
  * Describes a causal element

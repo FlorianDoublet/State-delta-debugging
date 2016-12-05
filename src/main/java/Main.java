@@ -1,4 +1,4 @@
-import fr.univ_lille1.m2iagl.dd.Challenge;
+import fr.univ.lille1.m2iagl.dd.Challenge;
 import spoon.Launcher;
 import spoon.processing.ProcessingManager;
 import spoon.reflect.factory.Factory;
