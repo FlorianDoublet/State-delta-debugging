@@ -49,11 +49,4 @@ public class MarkupChallenge implements Challenge<String>{
 		
 	}
 
-	/**
-	 * will be removed
-	 */
-	public String getJavaProgram() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
