@@ -1,6 +1,6 @@
-import fr.univ.lille1.m2iagl.dd.CauseEffectChain;
-import fr.univ.lille1.m2iagl.dd.Challenge;
-import fr.univ.lille1.m2iagl.dd.DDebugger;
+import fr.univ_lille1.m2iagl.dd.CauseEffectChain;
+import fr.univ_lille1.m2iagl.dd.Challenge;
+import fr.univ_lille1.m2iagl.dd.DDebugger;
 
 
 /**
@@ -13,9 +13,12 @@ public class FancyDDebugger implements DDebugger<String>{
 
             Boolean res;
             System.out.println("Input : " + input + " : ");
-            res = challenge.oracle(input);
-
-            System.out.println("\t\t" + res);
+            try{
+            	challenge.challenge(input);
+            } catch (Exception e){
+            	//Ya un soucis :'( 
+            }
+            
         }
         return null;
     }
