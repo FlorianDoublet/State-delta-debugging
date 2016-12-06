@@ -1,7 +1,8 @@
 import java.util.Arrays;
 import java.util.List;
 
-import fr.univ.lille1.m2iagl.dd.Challenge;
+import fr.univ_lille1.m2iagl.dd.Challenge;
+
 
 /**
  * Created by FlorianDoublet on 03/12/2016.
@@ -15,23 +16,12 @@ public class MarkupChallenge implements Challenge<String>{
         return Arrays.asList("\"<b>foo</b>\"", "\'<b>foo</b>\'");
     }
 
-    public boolean oracle(String input) {
-        String res = removeHtmlMarkup(input);
-        //could be deleted, it's to print it for the example
-        System.out.println("\toperation return : " + res);
-        if(res.contains("<") || res.contains(">")){
-            return false;
-        }else{
-            return true;
-        }
-    }
 
-    public String getJavaProgram() {
-        return "foo";
-    }
-
-    private String removeHtmlMarkup(String s){
-        Boolean tag = false;
+    /**
+     * Remove Html Markup method
+     */
+	public Object doIt(String s) {
+		Boolean tag = false;
         Boolean quote = false;
         String out = "";
 
@@ -47,5 +37,16 @@ public class MarkupChallenge implements Challenge<String>{
             }
         }
         return out;
-    }
+	}
+
+	public void challenge(String input) {
+		String res = (String) doIt(input);
+        //could be deleted, it's to print it for the example
+        System.out.println("\toperation return : " + res);
+        if(res.contains("<") || res.contains(">")){
+            throw new RuntimeException();
+        }
+		
+	}
+
 }
