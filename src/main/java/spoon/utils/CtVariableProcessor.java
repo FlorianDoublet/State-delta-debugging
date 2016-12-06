@@ -23,7 +23,7 @@ import java.util.Set;
  * Created by FlorianDoublet on 03/12/2016.
  * Capture all the var
  */
-public class VariableProcessor extends AbstractProcessor<CtVariable> {
+public class CtVariableProcessor extends AbstractProcessor<CtVariable> {
     public void process(CtVariable variable) {
 
         System.out.println(" name : " + variable.getSimpleName());
