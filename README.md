@@ -1,7 +1,7 @@
 # State-delta-debugging
 Don't forget that you need Maven to run the project.<br />
 All the work made is just some exploration / suposition.<br />
-Feel free about talking with @FlorianDoublet to know more about it.
+Feel free about talking with @FlorianDoublet or @decottis to know more about it.
 <br />
 <br />
 There is still some BIG issues like how to retrieve vars value in runtime, because Spoon seems to only be a static analyser ... <br />
