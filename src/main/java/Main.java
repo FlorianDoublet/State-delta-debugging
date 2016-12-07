@@ -32,5 +32,9 @@ public class Main {
         final VariableProcessor processor = new VariableProcessor();
         processingManager.addProcessor(processor);
         processingManager.process(factory.Class().getAll());
+        
+        
+        
     }
+
 }
