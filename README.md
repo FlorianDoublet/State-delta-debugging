@@ -1,9 +1,12 @@
 # State-delta-debugging
 Don't forget that you need Maven to run the project.<br />
 All the work made is just some exploration / suposition.<br />
-Feel free about talking with @FlorianDoublet or @decottis to know more about it.
 <br />
 <br />
-There is still some BIG issues like how to retrieve vars value in runtime, because Spoon seems to only be a static analyser ... <br />
-Currently, debug.Main launch the debug.MarkupChallenge, and we only see that with the first input it's a fail and with the second one it's good.
-<br />Then Spoon will print all the variable he found in our class, and their type. But their is no correlation with the input given and the Spoon print, beause Spoon only analyse our static code and compile it, but never run the challenge.
+Currently, the Challenge .java file need to be in the folder "ressources"<br/>
+<br />
+All the CtAssignement and CtVariableRead are captured thanks to the implentation of the "capture" method arround them. The implentation was made in main/java/spoon/utils/ChallengeProcessor, wish call CtAssignmentOperations and CtVariableReadOperations.
+<br />
+The capture Method is wrote in FancyDDebbuger in the package debug.<br />
+<br />
+*Now, the Spoon Processor approach is replaced by the "object" approach as you can see in ChallengeProcessor, CtAssignmentOperations, etc.. Please respect this aspect as possible*
