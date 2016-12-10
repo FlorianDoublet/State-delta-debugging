@@ -1,3 +1,5 @@
+package debug;
+
 import java.util.List;
 
 import fr.univ_lille1.m2iagl.dd.CauseEffectChain;
