@@ -1,6 +1,7 @@
+package debug;
+
 import java.util.Arrays;
 import java.util.List;
-
 import fr.univ_lille1.m2iagl.dd.Challenge;
 
 
