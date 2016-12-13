@@ -28,15 +28,13 @@ public class CtAssignmentOperations {
 
         for (Object obj : this.method.getElements(new TypeFilter<>(CtAssignment.class))) {
 
-            CtAssignment assignment = (CtAssignment) obj;
 
-            /*System.out.println("l(" + assignment.getPosition().getLine() + ") : " +
-                    assignment.getAssigned().toString() + " " + getOperator(assignment) + " " + assignment.getAssignment().toString() +
-                    " (" + assignment.getType() + ")");*/
+            CtAssignment assignment = (CtAssignment) obj;
 
             //Surround the assignement with our method
             String surrounded = "debug.FancyDDebugger.capture(" + assignment.getAssignment() + ", "
-                    + assignment.getPosition().getLine() + ", \"" + assignment.getAssignment().toString() + "\")";
+                    + assignment.getPosition().getLine() + ", \"" + assignment.getAssigned().toString() + "\", \"" + getOperator(assignment) + "\"); "
+                    + "debug.FancyDDebugger.captureNewVal(" + assignment.getAssigned() + ", \"" + assignment.getAssigned() + "\")";
             //Apply it
             final CtCodeSnippetExpression statementMethod = launcher.getFactory().Code().createCodeSnippetExpression(surrounded);
             assignment.setAssignment(statementMethod);

@@ -52,7 +52,9 @@ public class ChallengeProcessor {
             if(method.getSimpleName().equals("doIt")){
 
                 new CtAssignmentOperations(method, launcher);
-                new CtVariableReadOperations(method, launcher);
+                //Todo : make it work
+                //new CtVariableOperations(method, launcher);
+                //new CtVariableReadOperations(method, launcher);
 
             }
         }

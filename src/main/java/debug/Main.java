@@ -1,8 +1,13 @@
 package debug;
 
+import fr.univ_lille1.m2iagl.dd.CauseEffectChain;
+import fr.univ_lille1.m2iagl.dd.ChainElement;
 import fr.univ_lille1.m2iagl.dd.Challenge;
 import spoon.Launcher;
 import spoon.utils.ChallengeProcessor;
+import utils.CapturedVar;
+
+import java.util.Map;
 
 
 /**
@@ -15,8 +20,14 @@ public class Main {
         debugger.debug(c);
         test();
         System.out.println("\n*** print of capturedVar list ***\n");
-        for(CapturedVar cpt : debugger.capturedVars){
-            System.out.println(cpt.toString());
+        DebugCauseEffectChain causeEffectChain = new DebugCauseEffectChain();
+        for (Map.Entry<String, CapturedVar> entry : debugger.capturedVars.entrySet()) {
+            String key = entry.getKey();
+            CapturedVar value = entry.getValue();
+            causeEffectChain.addChainList(value.buildChainElementList());
+        }
+        for(ChainElement chaineElement : causeEffectChain.getChain()){
+            System.out.println("line " + chaineElement.getLine() + " the var " + chaineElement.getVariable() + " " + chaineElement.getDescription());
         }
     }
 

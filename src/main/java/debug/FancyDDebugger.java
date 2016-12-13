@@ -2,9 +2,9 @@ package debug;
 
 import fr.univ_lille1.m2iagl.dd.Challenge;
 import fr.univ_lille1.m2iagl.dd.DDebugger;
+import utils.CapturedVar;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -12,11 +12,11 @@ import java.util.List;
  */
 public class FancyDDebugger implements DDebugger<String>{
 
-    public static List<CapturedVar> capturedVars = new ArrayList<CapturedVar>();
+    public static Map<String, CapturedVar> capturedVars = new LinkedHashMap<>();
+    public static boolean waitForNewValue = false;
 
 
-
-    public OurCauseEffectChain debug(Challenge<String> challenge) {
+    public DebugCauseEffectChain debug(Challenge<String> challenge) {
         for (String input: challenge.getInputs()){
 
             Boolean res;
@@ -24,17 +24,43 @@ public class FancyDDebugger implements DDebugger<String>{
             try{
             	challenge.challenge(input);
             } catch (Exception e){
-            	//Ya un soucis :'( 
+            	//Ya un soucis :'(
             }
 
 
         }
         return null;
     }
+
+
+
+
     
-    public static <T> T capture(T input, int line, String inputName){
-        capturedVars.add(new CapturedVar(line, input, inputName, input.getClass()));
-        return input;
+    public static <T> T capture(T inputVal, int line, String inputName){
+        if(capturedVars.containsKey(inputName)){
+            capturedVars.get(inputName).addState(line, inputVal);
+        } else {
+            capturedVars.put(inputName, new CapturedVar(line, inputVal, inputName, inputVal.getClass()));
+        }
+        return inputVal;
+    }
+
+    public static <T> T capture(T inputVal, int line, String inputName, String binaryOperator){
+        System.out.println(line);
+        if(!binaryOperator.equals("=")){
+            waitForNewValue = true;
+        }
+        if(capturedVars.containsKey(inputName)){
+            capturedVars.get(inputName).addState(line, inputVal, binaryOperator);
+        } else {
+            capturedVars.put(inputName, new CapturedVar(line, inputVal, inputName, inputVal.getClass()));
+        }
+        return inputVal;
+    }
+
+    public static void captureNewVal(Object inputVal, String inputName ){
+        capturedVars.get(inputName).changeLastNewValue(inputVal);
+        waitForNewValue = false;
     }
     
     public static <T> T convertInstanceOfObject(Object o, Class<T> clazz) {
