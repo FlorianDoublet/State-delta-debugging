@@ -8,18 +8,20 @@ import fr.univ_lille1.m2iagl.dd.ChainElement;
 public class DebugChainElement implements ChainElement {
 
     public int line;
+    public String iteration;
     public String varName;
     public String description;
 
-    public DebugChainElement(int line, String varName, String description){
+    public DebugChainElement(int line, String varName, String description, String iteration){
         this.line = line;
         this.varName = varName;
         this.description = description;
+        this.iteration = iteration;
     }
 
     @Override
     public String getLine() {
-        return String.valueOf(this.line);
+        return String.valueOf(this.line) + " " + iteration;
     }
 
     @Override

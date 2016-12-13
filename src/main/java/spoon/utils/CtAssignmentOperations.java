@@ -32,9 +32,9 @@ public class CtAssignmentOperations {
             CtAssignment assignment = (CtAssignment) obj;
 
             //Surround the assignement with our method
-            String surrounded = "debug.FancyDDebugger.capture(" + assignment.getAssignment() + ", "
+            String surrounded = "utils.DebugManipulation.capture(" + assignment.getAssignment() + ", "
                     + assignment.getPosition().getLine() + ", \"" + assignment.getAssigned().toString() + "\", \"" + getOperator(assignment) + "\"); "
-                    + "debug.FancyDDebugger.captureNewVal(" + assignment.getAssigned() + ", \"" + assignment.getAssigned() + "\")";
+                    + "utils.DebugManipulation.captureNewVal(" + assignment.getAssigned() + ", \"" + assignment.getAssigned() + "\")";
             //Apply it
             final CtCodeSnippetExpression statementMethod = launcher.getFactory().Code().createCodeSnippetExpression(surrounded);
             assignment.setAssignment(statementMethod);

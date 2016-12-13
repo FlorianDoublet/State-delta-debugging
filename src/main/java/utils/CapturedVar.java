@@ -16,19 +16,19 @@ public class CapturedVar {
 	public List<ChainElement> chainElementList = new ArrayList<ChainElement>();
 
 
-	public CapturedVar(int line, Object val, String name, Class varClass) {
+	public CapturedVar(int line, Object val, String name, Class varClass, String iteration) {
 		this.name = name;
 		this.varClass = varClass;
 		this.lastVal = val;
-		states.add(new StateOfVar(line, val));
+		states.add(new StateOfVar(line, val, iteration));
 	}
 
-	public void addState(int line, Object newVal){
-		states.add(new StateOfVar(line, this.lastVal, newVal));
+	public void addState(int line, Object newVal, String iteration){
+		states.add(new StateOfVar(line, this.lastVal, newVal, iteration));
 	}
 
-	public void addState(int line, Object newVal, String binaryOperator){
-		states.add(new StateOfVar(line, this.lastVal, newVal, binaryOperator));
+	public void addState(int line, Object newVal, String binaryOperator, String iteration){
+		states.add(new StateOfVar(line, this.lastVal, newVal, binaryOperator, iteration));
 	}
 
 
@@ -41,7 +41,7 @@ public class CapturedVar {
 			} else {
 				description += " became " + state.newVal.toString();
 			}
-			chainElementList.add(new DebugChainElement(line, name, description));
+			chainElementList.add(new DebugChainElement(line, name, description, state.iteration));
 		}
 		return chainElementList;
 

@@ -53,7 +53,7 @@ public class ChallengeProcessor {
 
                 new CtAssignmentOperations(method, launcher);
                 //Todo : make it work
-                //new CtVariableOperations(method, launcher);
+                new CtVariableOperations(method, launcher);
                 //new CtVariableReadOperations(method, launcher);
 
             }

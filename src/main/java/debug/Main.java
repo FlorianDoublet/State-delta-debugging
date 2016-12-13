@@ -9,6 +9,8 @@ import utils.CapturedVar;
 
 import java.util.Map;
 
+import static utils.DebugManipulation.capturedVars;
+
 
 /**
  * Created by FlorianDoublet on 03/12/2016.
@@ -21,7 +23,7 @@ public class Main {
         test();
         System.out.println("\n*** print of capturedVar list ***\n");
         DebugCauseEffectChain causeEffectChain = new DebugCauseEffectChain();
-        for (Map.Entry<String, CapturedVar> entry : debugger.capturedVars.entrySet()) {
+        for (Map.Entry<String, CapturedVar> entry : capturedVars.entrySet()) {
             String key = entry.getKey();
             CapturedVar value = entry.getValue();
             causeEffectChain.addChainList(value.buildChainElementList());

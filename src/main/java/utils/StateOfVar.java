@@ -9,23 +9,27 @@ public class StateOfVar {
     public Object oldVal = null;
     public Object newVal = null;
     public String binaryOperator;
+    public String iteration = "";
 
-    public StateOfVar(int line, Object oldVal){
+    public StateOfVar(int line, Object oldVal, String iteration){
         this.line = line;
         this.oldVal = oldVal;
+        this.iteration = iteration;
     }
 
-    public StateOfVar(int line, Object oldVal, Object newVal){
+    public StateOfVar(int line, Object oldVal, Object newVal, String iteration){
         this.line = line;
         this.oldVal = oldVal;
         this.newVal = newVal;
+        this.iteration = iteration;
     }
 
-    public StateOfVar(int line, Object oldVal, Object newVal, String binaryOperator){
+    public StateOfVar(int line, Object oldVal, Object newVal, String binaryOperator, String iteration){
         this.line = line;
         this.oldVal = oldVal;
         this.newVal = newVal;
         this.binaryOperator = binaryOperator;
+        this.iteration = iteration;
     }
 
 }

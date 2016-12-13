@@ -1,12 +1,13 @@
 package spoon.utils;
 
 import spoon.Launcher;
-import spoon.reflect.code.CtCodeSnippetExpression;
-import spoon.reflect.code.CtLocalVariable;
-import spoon.reflect.code.CtVariableRead;
+import spoon.reflect.code.*;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtVariable;
 import spoon.reflect.visitor.filter.TypeFilter;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by FlorianDoublet on 13/12/2016.
@@ -30,14 +31,37 @@ public class CtVariableOperations {
 
             CtLocalVariable variable = (CtLocalVariable) obj;
 
-            String surrounded = "debug.FancyDDebugger.capture(" + variable.getAssignment() + ", "
-                    + variable.getPosition().getLine() + ", \"" + variable + "\")";
-            //Apply it
-            final CtCodeSnippetExpression statementMethod = launcher.getFactory().Code().createCodeSnippetExpression(surrounded);
-            variable.replace(statementMethod);
+           CtForEach foreach = variable.getParent(new TypeFilter<>(CtForEach.class));
+           if(foreach != null){
+               System.out.println(" *********** coucou ************");
+               System.out.println(foreach.getPosition().getLine());
+               System.out.println(foreach.getVariable());
+               System.out.println(variable.getSimpleName());
 
-            /*System.out.println("l(" + variableRead.getPosition().getLine()+ ") : " +
-                    variableRead.getVariable().toString());*/
+
+               String surround = foreach.toString();
+               String pattern = "\\{";
+               Pattern r = Pattern.compile(pattern);
+
+               String addedCapture = "utils.DebugManipulation.capture(" + foreach.getVariable().getSimpleName() + ", "
+                       + foreach.getPosition().getLine() + ", \"" + foreach.getVariable().getSimpleName() +"\");";
+               addedCapture += "utils.DebugManipulation.iterate(" + foreach.getPosition().getLine() + ");";
+               surround = r.matcher(surround).replaceFirst("\\{" + addedCapture);
+
+
+
+               //Apply it
+               final CtCodeSnippetStatement statementMethod = launcher.getFactory().Code().createCodeSnippetStatement(surround);
+               foreach.replace(statementMethod);
+
+           } else {
+               String surrounded = "utils.DebugManipulation.capture(" + variable.getAssignment() + ", "
+                       + variable.getPosition().getLine() + ", \"" + variable.getSimpleName() + "\")";
+               //Apply it
+               final CtCodeSnippetExpression statementMethod = launcher.getFactory().Code().createCodeSnippetExpression(surrounded);
+               variable.setAssignment(statementMethod);
+           }
+
 
         }
 

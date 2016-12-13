@@ -25,7 +25,6 @@ public class MarkupChallenge implements Challenge<String>{
 		Boolean tag = false;
         Boolean quote = false;
         String out = "";
-
         for(Character c : s.toCharArray()){
             if(c == '<' && !quote){
                 tag = true;

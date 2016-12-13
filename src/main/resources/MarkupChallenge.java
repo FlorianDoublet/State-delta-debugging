@@ -37,6 +37,7 @@ public class MarkupChallenge implements Challenge<String>{
                 out += c;
             }
         }
+        String hihi = "";
         return out;
 	}
 
