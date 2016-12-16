@@ -4,6 +4,7 @@ import fr.univ_lille1.m2iagl.dd.ChainElement;
 
 /**
  * Created by FlorianDoublet on 13/12/16.
+ * Our Implementation of ChainElement
  */
 public class DebugChainElement implements ChainElement {
 
@@ -16,6 +17,7 @@ public class DebugChainElement implements ChainElement {
         this.line = line;
         this.varName = varName;
         this.description = description;
+        //iteration are considered as a String
         this.iteration = iteration;
     }
 

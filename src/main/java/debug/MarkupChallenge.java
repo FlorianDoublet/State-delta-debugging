@@ -7,6 +7,7 @@ import fr.univ_lille1.m2iagl.dd.Challenge;
 
 /**
  * Created by FlorianDoublet on 03/12/2016.
+ *  WARKING !!! This file is'nt used for the transformation, it's the file present in resources !!
  */
 public class MarkupChallenge implements Challenge<String>{
     public Class<String> getInputFormat() {

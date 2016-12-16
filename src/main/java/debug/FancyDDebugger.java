@@ -16,6 +16,7 @@ import static utils.DebugManipulation.capturedVars;
 
 /**
  * Created by FlorianDoublet on 03/12/2016.
+ * Our Implementation of DDebugger
  */
 public class FancyDDebugger implements DDebugger<String>{
 
@@ -34,7 +35,6 @@ public class FancyDDebugger implements DDebugger<String>{
 
         for (String input: challenge.getInputs()){
 
-            Boolean res;
             System.out.println("Input : " + input + " : ");
             try{
                 modifiedChallenge.challenge(input);
