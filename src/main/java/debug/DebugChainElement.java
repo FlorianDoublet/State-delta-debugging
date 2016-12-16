@@ -7,7 +7,7 @@ import fr.univ_lille1.m2iagl.dd.ChainElement;
  */
 public class DebugChainElement implements ChainElement {
 
-    public int line;
+    public Integer line;
     public String iteration;
     public String varName;
     public String description;
@@ -23,6 +23,8 @@ public class DebugChainElement implements ChainElement {
     public String getLine() {
         return String.valueOf(this.line) + " " + iteration;
     }
+
+    public int getOnlyLine() { return this.line; }
 
     @Override
     public String getVariable() {

@@ -1,5 +1,6 @@
 
 import fr.univ_lille1.m2iagl.dd.Challenge;
+import utils.DebugManipulation;
 
 import java.util.Arrays;
 import java.util.List;
