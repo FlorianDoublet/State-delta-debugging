@@ -24,14 +24,9 @@ public class ChallengeProcessor {
 
     public ChallengeProcessor(Launcher launcher){
         this.launcher = launcher;
-        try {
-            this.process();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    public void process() throws Exception {
+    public Challenge process() throws Exception {
 
         CtCodeSnippetStatement snippet = launcher.getFactory().Core().createCodeSnippetStatement();
 
@@ -50,10 +45,11 @@ public class ChallengeProcessor {
         for(Object e : challenge.getElements(new TypeFilter(CtMethod.class))) {
             CtMethod method = (CtMethod)e;
             if(method.getSimpleName().equals("doIt")){
-
+                new CtLoopOperation(method, launcher);
                 new CtAssignmentOperations(method, launcher);
                 //Todo : make it work
                 new CtVariableOperations(method, launcher);
+
                 //new CtVariableReadOperations(method, launcher);
 
             }
@@ -61,10 +57,8 @@ public class ChallengeProcessor {
 
         challengeClass = InMemoryJavaCompiler.compile(challenge.getQualifiedName(), challenge.toString());
         Challenge modifiedChallenge = (Challenge) challengeClass.newInstance();
-        FancyDDebugger dDebugger = new FancyDDebugger();
-        dDebugger.debug(modifiedChallenge);
 
-
+        return modifiedChallenge;
 
     }
 }

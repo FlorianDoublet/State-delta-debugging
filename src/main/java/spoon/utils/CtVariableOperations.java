@@ -31,37 +31,20 @@ public class CtVariableOperations {
 
             CtLocalVariable variable = (CtLocalVariable) obj;
 
-           CtForEach foreach = variable.getParent(new TypeFilter<>(CtForEach.class));
-           if(foreach != null){
-               System.out.println(" *********** coucou ************");
-               System.out.println(foreach.getPosition().getLine());
-               System.out.println(foreach.getVariable());
-               System.out.println(variable.getSimpleName());
+           if(!(variable.getParent() instanceof CtForEach)){
 
-
-               String surround = foreach.toString();
-               String pattern = "\\{";
-               Pattern r = Pattern.compile(pattern);
-
-               String addedCapture = "utils.DebugManipulation.capture(" + foreach.getVariable().getSimpleName() + ", "
-                       + foreach.getPosition().getLine() + ", \"" + foreach.getVariable().getSimpleName() +"\");";
-               addedCapture += "utils.DebugManipulation.iterate(" + foreach.getPosition().getLine() + ");";
-               surround = r.matcher(surround).replaceFirst("\\{" + addedCapture);
-
-
-
-               //Apply it
-               final CtCodeSnippetStatement statementMethod = launcher.getFactory().Code().createCodeSnippetStatement(surround);
-               foreach.replace(statementMethod);
-
-           } else {
                String surrounded = "utils.DebugManipulation.capture(" + variable.getAssignment() + ", "
                        + variable.getPosition().getLine() + ", \"" + variable.getSimpleName() + "\")";
                //Apply it
                final CtCodeSnippetExpression statementMethod = launcher.getFactory().Code().createCodeSnippetExpression(surrounded);
                variable.setAssignment(statementMethod);
+           } else {
+               CtForEach foreach = (CtForEach) variable.getParent();
+               String addedCapture = "utils.DebugManipulation.capture(" + variable.getSimpleName() + ", "
+                       + variable.getPosition().getLine() + ", \"" + variable.getSimpleName() +"\")";
+               final CtCodeSnippetStatement statementMethod = launcher.getFactory().Code().createCodeSnippetStatement(addedCapture);
+               variable.insertAfter(statementMethod);
            }
-
 
         }
 

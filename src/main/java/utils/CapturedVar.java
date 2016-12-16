@@ -13,7 +13,7 @@ public class CapturedVar {
 	public Class varClass;
 	public Object lastVal;
 	public List<StateOfVar> states = new ArrayList<>();
-	public List<ChainElement> chainElementList = new ArrayList<ChainElement>();
+	public List<DebugChainElement> chainElementList = new ArrayList<DebugChainElement>();
 
 
 	public CapturedVar(int line, Object val, String name, Class varClass, String iteration) {
@@ -32,7 +32,7 @@ public class CapturedVar {
 	}
 
 
-	public List<ChainElement> buildChainElementList(){
+	public List<DebugChainElement> buildChainElementList(){
 		for(StateOfVar state : states){
 			int line = state.line;
 			String description = "";

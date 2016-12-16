@@ -9,9 +9,9 @@ import java.util.Map;
  */
 public class DebugManipulation {
 
-    public static Map<String, CapturedVar> capturedVars = new LinkedHashMap<>();
+    public static LinkedHashMap<String, CapturedVar> capturedVars = new LinkedHashMap<>();
     public static boolean waitForNewValue = false;
-    public static Map<Integer, Integer> iterations = new LinkedHashMap<>();
+    public static LinkedHashMap<Integer, Integer> iterations = new LinkedHashMap<>();
 
     public static <T> T capture(T inputVal, int line, String inputName){
         if(capturedVars.containsKey(inputName)){
@@ -23,7 +23,6 @@ public class DebugManipulation {
     }
 
     public static <T> T capture(T inputVal, int line, String inputName, String binaryOperator){
-        System.out.println(line);
         if(!binaryOperator.equals("=")){
             waitForNewValue = true;
         }
@@ -41,14 +40,6 @@ public class DebugManipulation {
     }
 
 
-    public static <T> T convertInstanceOfObject(Object o, Class<T> clazz) {
-        try {
-            return clazz.cast(o);
-        } catch(ClassCastException e) {
-            return null;
-        }
-    }
-
     public static void iterate(int line){
         if(iterations.containsKey(line)){
            iterations.replace(line, iterations.get(line)+1);
@@ -58,13 +49,14 @@ public class DebugManipulation {
     }
 
     public static void resetIteration(){
-        //Todo finir ca
-        /*
-
+        int last = iterations.size() - 1;
+        int i = 0;
+        Integer toRemove = null;
         for (Map.Entry<Integer, Integer> entry : iterations.entrySet()) {
-            Integer value = entry.getValue();
-            iteration += value.toString() + " ";
-        }*/
+            if(i == last) toRemove = entry.getKey();
+            i++;
+        }
+        iterations.remove(toRemove);
     }
 
     public static String buildIterationString(){
@@ -73,7 +65,7 @@ public class DebugManipulation {
             Integer value = entry.getValue();
             iteration += value.toString() + " ";
         }
-        if(iterations.size() == 0){
+        if(iterations.isEmpty()){
             iteration += "1 ";
         }
         iteration += ")";
