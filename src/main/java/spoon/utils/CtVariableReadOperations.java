@@ -9,6 +9,7 @@ import spoon.reflect.visitor.filter.TypeFilter;
 
 /**
  * Created by FlorianDoublet on 10/12/2016.
+ * NOT USED ANYMORE (We probably gonna delete it latter)
  */
 public class CtVariableReadOperations {
 
@@ -35,8 +36,6 @@ public class CtVariableReadOperations {
             final CtCodeSnippetExpression statementMethod = launcher.getFactory().Code().createCodeSnippetExpression(surrounded);
             variableRead.replace(statementMethod);
 
-            /*System.out.println("l(" + variableRead.getPosition().getLine()+ ") : " +
-                    variableRead.getVariable().toString());*/
 
         }
 

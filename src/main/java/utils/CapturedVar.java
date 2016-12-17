@@ -6,6 +6,11 @@ import fr.univ_lille1.m2iagl.dd.ChainElement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by FlorianDoublet on 13/12/2016.
+ * Class used to Captured our variable before to transform it into a ChainElementList.
+ * A Captured var has a List of State
+ */
 public class CapturedVar {
 	
 
@@ -31,7 +36,7 @@ public class CapturedVar {
 		states.add(new StateOfVar(line, this.lastVal, newVal, binaryOperator, iteration));
 	}
 
-
+	//Transform or CapturedVar with is States into a ChainElement list
 	public List<DebugChainElement> buildChainElementList(){
 		for(StateOfVar state : states){
 			int line = state.line;
@@ -47,16 +52,23 @@ public class CapturedVar {
 
 	}
 
+	/**
+	 * change the last value of the captured var into the new one given
+	 * @param newVal the new value to replace the older one
+	 */
 	public void changeLastNewValue(Object newVal){
 		states.get(states.size() - 1).newVal = newVal;
 	}
 
-
+	//Used to transform this object in a Hashable one, but only based on the name of the Var
 	@Override
 	public int hashCode(){
 		return name.hashCode();
 	}
 
+	/**
+	 * Used to transform this object to handle the equals operation, but only based on the name of the Vars
+	 */
 	@Override
 	public boolean equals(Object other){
 		if(other instanceof CapturedVar){

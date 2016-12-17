@@ -2,6 +2,7 @@ package utils;
 
 /**
  * Created by FlorianDoublet on 13/12/16.
+ * This class modelise the Status of a captured variable
  */
 public class StateOfVar {
 

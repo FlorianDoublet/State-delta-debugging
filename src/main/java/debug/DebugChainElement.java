@@ -26,6 +26,10 @@ public class DebugChainElement implements ChainElement {
         return String.valueOf(this.line) + " " + iteration;
     }
 
+    /**
+     * added method to only get the line and not the iterations with it
+     * @return
+     */
     public int getOnlyLine() { return this.line; }
 
     @Override

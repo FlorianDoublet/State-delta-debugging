@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 /**
  * Created by Florian on 13/12/2016.
+ * Class used to capture all the loop operation in our code.
  */
 public class CtLoopOperation {
 
@@ -28,8 +29,9 @@ public class CtLoopOperation {
     public void process(){
 
         for (Object obj : this.method.getElements(new TypeFilter<>(CtLoop.class))) {
-
+            //insert the method to capture the iteration and reset it at the en of the loop
             CtLoop loop = (CtLoop) obj;
+
             //insert our iteration method at beginning of the loop
             String addIteration = "utils.DebugManipulation.iterate(" + loop.getPosition().getLine() + ")";
             final CtCodeSnippetStatement addIterationSnippet = launcher.getFactory().Code().createCodeSnippetStatement(addIteration);

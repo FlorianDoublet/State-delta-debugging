@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Created by FlorianDoublet on 03/12/2016.
+ * .Java file that will be transformed by our code !
  */
 public class MarkupChallenge implements Challenge<String>{
     public Class<String> getInputFormat() {

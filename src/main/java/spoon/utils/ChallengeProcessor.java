@@ -17,6 +17,7 @@ import spoon.support.QueueProcessingManager;
 
 /**
  * Created by FlorianDoublet on 10/12/2016.
+ * This Classis used to tranform the code of our challenge
  */
 public class ChallengeProcessor {
 
@@ -28,34 +29,38 @@ public class ChallengeProcessor {
 
     public Challenge process() throws Exception {
 
+        //create an empty snippet
         CtCodeSnippetStatement snippet = launcher.getFactory().Core().createCodeSnippetStatement();
-
-
+        //Load the CtClass of our challenge
         CtClass challenge = (CtClass) launcher.getFactory().Package().getRootPackage().getElements(new NameFilter("MarkupChallenge")).get(0);
 
-        //new ClassProcessor(foo, launcher);
-
+        //Our futur class of the challenge
         Class<?> challengeClass = null;
         try {
+            //Load and compile the inital file of the challenge
             challengeClass = InMemoryJavaCompiler.compile(challenge.getQualifiedName(), challenge.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        //Beginning of our process of code transformation !
+        //So we gonna iterate on all methods of our challenge
         for(Object e : challenge.getElements(new TypeFilter(CtMethod.class))) {
             CtMethod method = (CtMethod)e;
+            //If it's the method that we are looking for.. Here "doIt"
             if(method.getSimpleName().equals("doIt")){
+                //We launch here all or different "process" to treat the case we need and transform the code
                 new CtLoopOperation(method, launcher);
                 new CtAssignmentOperations(method, launcher);
-                //Todo : make it work
                 new CtVariableOperations(method, launcher);
 
-                //new CtVariableReadOperations(method, launcher);
 
             }
         }
 
+        //then reload the modified challenge in our class
         challengeClass = InMemoryJavaCompiler.compile(challenge.getQualifiedName(), challenge.toString());
+        //And create a new instance of it
         Challenge modifiedChallenge = (Challenge) challengeClass.newInstance();
 
         return modifiedChallenge;
