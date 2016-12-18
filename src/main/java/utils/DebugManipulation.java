@@ -11,6 +11,7 @@ import java.util.Map;
 public class DebugManipulation {
 
     public static LinkedHashMap<String, CapturedVar> capturedVars = new LinkedHashMap<>();
+    public static LinkedHashMap<String, CapturedVar> capturedVarsToReplaceValues = new LinkedHashMap<>();
     public static boolean waitForNewValue = false;
     public static LinkedHashMap<Integer, Integer> iterations = new LinkedHashMap<>();
 
@@ -30,7 +31,8 @@ public class DebugManipulation {
         } else {
             capturedVars.put(inputName, new CapturedVar(line, inputVal, inputName, inputVal.getClass(), buildIterationString()));
         }
-        return inputVal;
+        //return the input OR if it exist, another value to replace it
+        return replaceValueIfExist(inputVal, capturedVars.get(inputName));
     }
 
     /**
@@ -54,7 +56,8 @@ public class DebugManipulation {
         } else {
             capturedVars.put(inputName, new CapturedVar(line, inputVal, inputName, inputVal.getClass(), buildIterationString()));
         }
-        return inputVal;
+        //return the input OR if it exist, another value to replace it
+        return replaceValueIfExist(inputVal, capturedVars.get(inputName));
     }
 
     /**
@@ -108,5 +111,44 @@ public class DebugManipulation {
         }
         iteration += ")";
         return iteration;
+    }
+
+    /**
+     * Used to replace the input by the potential existing value we want to return instead
+     * @param input
+     * @param inputCapturedVar
+     * @param <T>
+     * @return
+     */
+    public static <T> T replaceValueIfExist(T input, CapturedVar inputCapturedVar){
+        //if their is no special value to send instead of the orginal input, then return the original input
+        if(!capturedVarsToReplaceValues.containsKey(inputCapturedVar.name)) return input;
+
+        //else search for the good state to replace the input value
+        CapturedVar replacementVar = capturedVarsToReplaceValues.get(inputCapturedVar.name);
+        StateOfVar lastState = inputCapturedVar.states.get(inputCapturedVar.states.size() - 1);
+
+        //then if a state is the same for line and iteration that the existing one of the input
+        //then return is value
+        for(StateOfVar replacementState : replacementVar.states){
+            if(compareTwoState(lastState, replacementState)){
+                return (T)replacementState.oldVal;
+            }
+        }
+
+        //SHOULDN'T return here !! if it is, their is a problem
+        return null;
+    }
+
+    /**
+     * Used to compare two state on some criteria (here line and iterations)
+     * @param state1
+     * @param state2
+     * @return
+     */
+    public static boolean compareTwoState(StateOfVar state1, StateOfVar state2){
+        if(state1.line != state2.line) return false;
+        if(!(state1.iteration.equals(state2.iteration))) return false;
+        return true;
     }
 }
