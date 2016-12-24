@@ -26,7 +26,8 @@ public class DebugManipulation {
      * @return
      */
     public static <T> T capture(T inputVal, int line, String inputName){
-        if(capturedVars.containsKey(inputName)){
+    	
+    	if(capturedVars.containsKey(inputName)){
             capturedVars.get(inputName).addState(line, inputVal, buildIterationString());
         } else {
             capturedVars.put(inputName, new CapturedVar(line, inputVal, inputName, inputVal.getClass(), buildIterationString()));

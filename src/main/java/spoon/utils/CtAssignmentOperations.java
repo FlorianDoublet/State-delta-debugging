@@ -1,5 +1,7 @@
 package spoon.utils;
 
+import java.lang.reflect.Method;
+
 import org.apache.log4j.Level;
 import spoon.Launcher;
 import spoon.reflect.code.*;
@@ -25,7 +27,6 @@ public class CtAssignmentOperations {
         for (Object obj : this.method.getElements(new TypeFilter<>(CtAssignment.class))) {
 
             CtAssignment assignment = (CtAssignment) obj;
-
             ///Surround the assignment with our method
             String surrounded = "utils.DebugManipulation.capture(" + assignment.getAssignment() + ", "
                     + assignment.getPosition().getLine() + ", \"" + assignment.getAssigned().toString() + "\", \"" + getOperator(assignment) + "\")";
@@ -33,14 +34,13 @@ public class CtAssignmentOperations {
             final CtCodeSnippetExpression statementMethod = launcher.getFactory().Code().createCodeSnippetExpression(surrounded);
             assignment.setAssignment(statementMethod);
 
-
             //Then we gonna add a new line to capture the new value of the object. Maybe the previous line should be replaced by this one
             String captureNewValue = "utils.DebugManipulation.captureNewVal(" + assignment.getAssigned() + ", \"" + assignment.getAssigned() + "\")";
             final CtCodeSnippetStatement captureNewValSnippet = launcher.getFactory().Code().createCodeSnippetStatement(captureNewValue);
             //Then apply it
             assignment.insertAfter(captureNewValSnippet);
-
         }
+ 
     }
 
     //Used to get the operator of the assignment

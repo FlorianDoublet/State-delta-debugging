@@ -12,7 +12,7 @@ import java.util.List;
  * A Captured var has a List of State
  */
 public class CapturedVar {
-	
+
 
 	public String name;
 	public Class varClass;
@@ -66,6 +66,18 @@ public class CapturedVar {
 		return name.hashCode();
 	}
 
+	public boolean equalsOnSpecificLine(CapturedVar other,int lineOfCompare){
+		// We check if the last value is the same on process
+		for(StateOfVar state : states){
+			for(StateOfVar stateOfSecondValue : other.states) {
+				if(state.line == lineOfCompare && stateOfSecondValue.line == lineOfCompare
+						&& state.equals(stateOfSecondValue)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	/**
 	 * Used to transform this object to handle the equals operation, but only based on the name of the Vars
 	 */

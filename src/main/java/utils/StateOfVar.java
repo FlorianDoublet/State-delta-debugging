@@ -33,4 +33,15 @@ public class StateOfVar {
         this.iteration = iteration;
     }
 
+    /**
+     * Check if the state of var is comparable to other one
+     * @param stateVariableOfSecondExecution
+     * @return
+     */
+	public boolean isStateComparableTo(StateOfVar stateVariableOfSecondExecution) {
+		
+		return this.line == stateVariableOfSecondExecution.line 
+				&& this.iteration.equals(stateVariableOfSecondExecution.iteration);
+	}
+
 }
