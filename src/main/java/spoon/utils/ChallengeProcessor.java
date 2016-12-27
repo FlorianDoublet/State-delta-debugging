@@ -53,6 +53,7 @@ public class ChallengeProcessor {
                 new CtLoopOperation(method, launcher);
                 new CtAssignmentOperations(method, launcher);
                 new CtVariableOperations(method, launcher);
+                new CtUnaryOperatorOperations(method, launcher);
 
 
             }
