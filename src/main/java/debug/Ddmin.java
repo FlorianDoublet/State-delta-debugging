@@ -72,10 +72,9 @@ public class Ddmin {
 		return diffs;
 	}
 
-	public Pair<ChainElement,ChainElement> process(List<Pair<ChainElement,ChainElement>> diffs) {
+	public Pair<StateOfVar,StateOfVar> process(List<Pair<StateOfVar,StateOfVar>> diffs) {
 		// Iteration on result from all the input
 		int indexOfFirstResult = 0, indexOfSecondResult = 0;
-		List<Pair<StateOfVar,StateOfVar>> currentDiffs;
 		Map<String, CapturedVar> currentVarOfFailedChallenge, currentVarOfGoodChallenge;
 		for(Entry<String,Boolean> currentResult : resultOfFirstChallengeByInput.entrySet()) {
 			// If the result is good, we iterate on bad result and add state by state diff to localize the error
@@ -87,10 +86,10 @@ public class Ddmin {
 						currentVarOfFailedChallenge = listMapCapturedVar.get(indexOfSecondResult);
 						// Step above here : GetAllDiff + Apply one diff from good result to bad result +
 						// 					 launchNewChallenge + check result + launchNewChallenge is still failing
-						currentDiffs = diffCauseEffectChain(
+						diffs = diffCauseEffectChain(
 											new ArrayList<CapturedVar>(currentVarOfGoodChallenge.values()),
 											new ArrayList<CapturedVar>(currentVarOfFailedChallenge.values()));
-						for(Pair<StateOfVar,StateOfVar> diff : currentDiffs) {
+						for(Pair<StateOfVar,StateOfVar> diff : diffs) {
 							// BACK HERE . NEED METHOD TO CHANGE Challenge from stateOfVar
 						}
 						
