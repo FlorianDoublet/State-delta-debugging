@@ -46,10 +46,14 @@ public class Ddmin {
 	 * @param chain2
 	 * @return
 	 */
-	public List<Pair<StateOfVar,StateOfVar>> diffCauseEffectChain(List<CapturedVar> currentVarOfGoodChallenge, 
-																  List<CapturedVar> currentVarOfFailedChallenge) {
-		Pair<StateOfVar,StateOfVar> tmpDiffElement;
-		List<Pair<StateOfVar,StateOfVar>> diffs = new ArrayList<Pair<StateOfVar,StateOfVar>>();
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public List<Pair<Pair<CapturedVar,StateOfVar>,Pair<CapturedVar,StateOfVar>>> diffCauseEffectChain(List<CapturedVar> currentVarOfGoodChallenge, 
+			List<CapturedVar> currentVarOfFailedChallenge) {
+		Pair<Pair<CapturedVar,StateOfVar>,Pair<CapturedVar,StateOfVar>> tmpDiffElement;
+		Pair<CapturedVar,StateOfVar> tmpVarFailedChallenge;
+		Pair<CapturedVar,StateOfVar> tmpVarGoodChallenge;
+		List<Pair<Pair<CapturedVar,StateOfVar>,Pair<CapturedVar,StateOfVar>>> diffs = 
+				new ArrayList<Pair<Pair<CapturedVar,StateOfVar>,Pair<CapturedVar,StateOfVar>>>();
 		for(CapturedVar variableOfGoodChallenge : currentVarOfGoodChallenge) {
 			for(CapturedVar variableOfFailedChallenge : currentVarOfFailedChallenge) {
 				if(variableOfGoodChallenge.equals(variableOfFailedChallenge)) {
@@ -61,8 +65,10 @@ public class Ddmin {
 										+ " on line (" + stateVariableOfGoodChallenge.line + ")" + " => New value :"
 										+ stateVariableOfGoodChallenge.newVal + " / " + stateVariableOfFailedChallenge.newVal);
 								// We add diff because 1/ Comparable 2/ assignation differente
-								diffs.add(new ImmutablePair<StateOfVar,StateOfVar>(stateVariableOfGoodChallenge,
-										stateVariableOfFailedChallenge));
+								tmpVarFailedChallenge = new ImmutablePair<CapturedVar,StateOfVar>(variableOfFailedChallenge, stateVariableOfFailedChallenge);
+								tmpVarGoodChallenge = new ImmutablePair<CapturedVar,StateOfVar>(variableOfGoodChallenge, stateVariableOfGoodChallenge);
+								tmpDiffElement = new ImmutablePair(tmpVarGoodChallenge,tmpVarFailedChallenge);
+								diffs.add(tmpDiffElement);
 							}
 						}	
 					}
@@ -72,11 +78,13 @@ public class Ddmin {
 		return diffs;
 	}
 
-	public Pair<ChainElement,ChainElement> process(List<Pair<ChainElement,ChainElement>> diffs) {
+	public Pair<StateOfVar,StateOfVar> process(List<Pair<Pair<CapturedVar,StateOfVar>,Pair<CapturedVar,StateOfVar>>> diffs) {
 		// Iteration on result from all the input
 		int indexOfFirstResult = 0, indexOfSecondResult = 0;
-		List<Pair<StateOfVar,StateOfVar>> currentDiffs;
 		Map<String, CapturedVar> currentVarOfFailedChallenge, currentVarOfGoodChallenge;
+		Pair<CapturedVar,StateOfVar> tmpGoodVarState;
+		Pair<CapturedVar,StateOfVar> tmpFailedVarState;
+		CapturedVar tmpCapturedVar;
 		for(Entry<String,Boolean> currentResult : resultOfFirstChallengeByInput.entrySet()) {
 			// If the result is good, we iterate on bad result and add state by state diff to localize the error
 			if(currentResult.getValue()) {
@@ -87,13 +95,21 @@ public class Ddmin {
 						currentVarOfFailedChallenge = listMapCapturedVar.get(indexOfSecondResult);
 						// Step above here : GetAllDiff + Apply one diff from good result to bad result +
 						// 					 launchNewChallenge + check result + launchNewChallenge is still failing
-						currentDiffs = diffCauseEffectChain(
-											new ArrayList<CapturedVar>(currentVarOfGoodChallenge.values()),
-											new ArrayList<CapturedVar>(currentVarOfFailedChallenge.values()));
-						for(Pair<StateOfVar,StateOfVar> diff : currentDiffs) {
-							// BACK HERE . NEED METHOD TO CHANGE Challenge from stateOfVar
+						diffs = diffCauseEffectChain(
+								new ArrayList<CapturedVar>(currentVarOfGoodChallenge.values()),
+								new ArrayList<CapturedVar>(currentVarOfFailedChallenge.values()));
+						for(Pair<Pair<CapturedVar,StateOfVar>,Pair<CapturedVar,StateOfVar>> diff : diffs) {
+							tmpGoodVarState = diff.getLeft();
+							tmpFailedVarState = diff.getRight();
+							// apply diff from good result to fail result and run failed input
+							tmpCapturedVar = tmpFailedVarState.getLeft();
+							tmpCapturedVar.states.clear();
+							tmpCapturedVar.states.add(tmpGoodVarState.getRight());
+							// We put VAR in list to apply this update
+							DebugManipulation.capturedVars.put(tmpFailedVarState.getLeft().name,tmpCapturedVar);
+							// HERE PROCESS CHALLENGE WITH NEW VALUE
 						}
-						
+
 					}
 					indexOfSecondResult += 1;
 				}
@@ -103,4 +119,12 @@ public class Ddmin {
 		}
 		return null;
 	}
+	//
+	//	private CapturedVar getFailedCapturedVarWithoutLastDiff(Pair<CapturedVar,StateOfVar> goodVarState,Pair<CapturedVar,StateOfVar> failedVarState) {
+	//		CapturedVar capturedVar;
+	//		for(StateOfVar goodState : goodVarState.getLeft().states) {
+	//			
+	//		}
+	//		return null;
+	//	}
 }
