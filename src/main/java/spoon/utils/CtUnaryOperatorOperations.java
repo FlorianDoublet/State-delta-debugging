@@ -32,7 +32,6 @@ public class CtUnaryOperatorOperations {
             unaryOp.replace(statementMethod);
 
         }
-        System.out.println(method.getBody());
     }
 
 
