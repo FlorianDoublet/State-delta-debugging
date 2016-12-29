@@ -12,9 +12,9 @@ public class StateOfVar {
     public String binaryOperator;
     public String iteration = "";
 
-    public StateOfVar(int line, Object oldVal, String iteration){
+    public StateOfVar(int line, Object newVal, String iteration){
         this.line = line;
-        this.oldVal = oldVal;
+        this.newVal = newVal;
         this.iteration = iteration;
     }
 

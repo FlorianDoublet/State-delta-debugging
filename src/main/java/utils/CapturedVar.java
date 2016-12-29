@@ -41,8 +41,8 @@ public class CapturedVar {
 		for(StateOfVar state : states){
 			int line = state.line;
 			String description = "";
-			if(state.newVal == null){
-				description += "was initialized to " + state.oldVal.toString();
+			if(state.oldVal == null){
+				description += "was initialized to " + state.newVal.toString();
 			} else {
 				description += " became " + state.newVal.toString();
 			}
