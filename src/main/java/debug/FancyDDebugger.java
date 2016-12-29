@@ -57,8 +57,8 @@ public class FancyDDebugger implements DDebugger<String>{
             DebugManipulation.capturedVars = new LinkedHashMap<>();
 
         }
-        Ddmin ddmin = new Ddmin(challengeProcessor,resultOfChallengeByInput,listMapCapturedVar);
-        
+        Ddmin ddmin = new Ddmin(challengeProcessor,resultOfChallengeByInput,listMapCapturedVar,modifiedChallenge);
+        ddmin.process();
         //then we wll build the CauseEffectChain for each previous run
         //thanks to their CapturedVar LinkedMap
         for(Map<String, CapturedVar> capturedMap : listMapCapturedVar){
