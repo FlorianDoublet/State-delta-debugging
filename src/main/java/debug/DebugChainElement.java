@@ -12,10 +12,12 @@ public class DebugChainElement implements ChainElement {
     public String iteration;
     public String varName;
     public String description;
+    public Object value;
 
-    public DebugChainElement(int line, String varName, String description, String iteration) {
+    public DebugChainElement(int line, String varName, Object value, String description, String iteration) {
         this.line = line;
         this.varName = varName;
+        this.value = value;
         this.description = description;
         //iteration are considered as a String
         this.iteration = iteration;
@@ -41,12 +43,13 @@ public class DebugChainElement implements ChainElement {
     public String getDescription() {
         return this.description;
     }
+
     @Override
     public boolean equals(Object o) {
 		if(o instanceof DebugChainElement) {
 			DebugChainElement elem = (DebugChainElement)o;
-			if(this.line.equals(elem.getLine()) && this.description.equals(elem.getDescription()) 
-				&& this.iteration.equals(elem.getIteration()) && this.iteration.equals(elem.getVariable())) {
+			if(this.varName.equals(elem.varName) && this.getLine().equals(elem.getLine()) && this.value.equals(elem.value)
+				&& this.description.equals(elem.description) ) {
 				return true;
 			}
 		}
@@ -57,7 +60,4 @@ public class DebugChainElement implements ChainElement {
 		return iteration;
 	}
 
-	public void setIteration(String iteration) {
-		this.iteration = iteration;
-	}
 }

@@ -36,7 +36,6 @@ public class MarkupChallenge implements Challenge<String>{
 		Boolean tag = false;
         Boolean quote = false;
         String out = "";
-
         for(Character c : s.toCharArray()){
             if(c == '<' && !quote){
                 tag = true;
@@ -54,8 +53,8 @@ public class MarkupChallenge implements Challenge<String>{
 	public void challenge(String input) {
 		String res = (String) doIt(input);
         //could be deleted, it's to print it for the example
-        System.out.println("\toperation return : " + res);
-        if(res.contains("<") || res.contains(">")){
+        //System.out.println("\toperation return : " + res);
+        if(res.contains("<")) {
             throw new RuntimeException();
         }
 		

@@ -33,7 +33,7 @@ public class DebugManipulation {
             capturedVars.put(inputName, new CapturedVar(line, inputVal, inputName, inputVal.getClass(), buildIterationString()));
         }
         //return the input OR if it exist, another value to replace it
-        return replaceValueIfExist(inputVal, capturedVars.get(inputName));
+        return replaceValueIfExist(inputVal, capturedVars.get(inputName), false);
     }
 
     /**
@@ -58,7 +58,7 @@ public class DebugManipulation {
             capturedVars.put(inputName, new CapturedVar(line, inputVal, inputName, inputVal.getClass(), buildIterationString()));
         }
         //return the input OR if it exist, another value to replace it
-        return replaceValueIfExist(inputVal, capturedVars.get(inputName));
+        return replaceValueIfExist(inputVal, capturedVars.get(inputName), false);
     }
 
     /**
@@ -67,8 +67,9 @@ public class DebugManipulation {
      * @param inputName
      */
     public static void captureNewVal(Object inputVal, String inputName ){
-        capturedVars.get(inputName).changeLastNewValue(inputVal);
-        waitForNewValue = false;
+        //temporary disable
+        /*capturedVars.get(inputName).changeLastNewValue(inputVal);
+        waitForNewValue = false;*/
     }
 
     /**
@@ -121,7 +122,7 @@ public class DebugManipulation {
      * @param <T>
      * @return
      */
-    public static <T> T replaceValueIfExist(T input, CapturedVar inputCapturedVar){
+    public static <T> T replaceValueIfExist(T input, CapturedVar inputCapturedVar, boolean isReading){
         //if their is no special value to send instead of the orginal input, then return the original input
         if(!capturedVarsToReplaceValues.containsKey(inputCapturedVar.name)) return input;
 
@@ -129,16 +130,23 @@ public class DebugManipulation {
         CapturedVar replacementVar = capturedVarsToReplaceValues.get(inputCapturedVar.name);
         StateOfVar lastState = inputCapturedVar.states.get(inputCapturedVar.states.size() - 1);
 
+        String it1 = lastState.iteration;
         //then if a state is the same for line and iteration that the existing one of the input
         //then return is value
         for(StateOfVar replacementState : replacementVar.states){
             if(compareTwoState(lastState, replacementState)){
+                replacementState.reached = true;
                 return (T)replacementState.newVal;
+            } else {
+                String it2 = replacementState.iteration;
+                if(iterationIsBigger(it1, it2) && replacementState.reached == false){
+                    if(isReading == false) replacementState.reached = true;
+                    return (T)replacementState.newVal;
+                }
             }
         }
 
-        //SHOULDN'T return here !! if it is, their is a problem
-        return null;
+        return input;
     }
 
     /**
@@ -151,5 +159,31 @@ public class DebugManipulation {
         if(state1.line != state2.line) return false;
         if(!(state1.iteration.equals(state2.iteration))) return false;
         return true;
+    }
+
+    public static <T> T readVar(T inputVal, int line, String inputName){
+        CapturedVar c = new CapturedVar(line, inputVal, inputName, inputVal.getClass(), buildIterationString(), true);
+        return replaceValueIfExist(inputVal, c, true);
+    }
+
+
+
+    //check if it1 is bigger than it2
+    public static Boolean iterationIsBigger(String it1, String it2) {
+        it1 = it1.substring(11, it1.length()-2);
+        it2 = it2.substring(11, it2.length()-2);
+        String[] it1A = it1.split("\\s");
+        String[] it2A = it2.split("\\s");
+        for (int i = 0; i < it1A.length; i++) {
+            int it1I = Integer.valueOf(it1A[i]);
+            int it2I = Integer.valueOf(it2A[i]);
+            if (it1I > it2I) {
+                return true;
+            } else if (it1I < it2I) {
+                return false;
+            }
+        }
+        // here it mean they are the same
+        return false;
     }
 }

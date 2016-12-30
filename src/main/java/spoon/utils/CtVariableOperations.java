@@ -41,14 +41,14 @@ public class CtVariableOperations {
                final CtCodeSnippetExpression statementMethod = launcher.getFactory().Code().createCodeSnippetExpression(surrounded);
                variable.setAssignment(statementMethod);
            } else {
-               //if it's a foreach var , like e in "for(Character e : s.ToCharCHain)" we need a special treatment
+               //if it's a foreach var , like e in "for(Character e : s.ToCharChain)" we need a special treatment
                //it's different 'cause we need to get the simpleName and not the assignement
                //and can't surround it, the we put this line afert the affectation
                CtForEach foreach = (CtForEach) variable.getParent();
-               String addedCapture = "utils.DebugManipulation.capture(" + variable.getSimpleName() + ", "
+               String addedCapture =  variable.getSimpleName() + " = utils.DebugManipulation.capture(" + variable.getSimpleName() + ", "
                        + variable.getPosition().getLine() + ", \"" + variable.getSimpleName() +"\")";
                final CtCodeSnippetStatement statementMethod = launcher.getFactory().Code().createCodeSnippetStatement(addedCapture);
-               variable.insertAfter(statementMethod);
+               variable.insertBefore(statementMethod);
            }
 
         }

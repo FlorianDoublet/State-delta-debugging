@@ -18,20 +18,25 @@ public class DebugCauseEffectChain implements CauseEffectChain {
     //which aren't provided in the ChainElement interface
     public List<DebugChainElement> ourCauseEffectChain = new ArrayList<DebugChainElement>();
 
-    /*
-    return a sorted chainElement
-    TODO: Sort also on iteration !!!
-     */
-    public List<ChainElement> getChain() {
+    public void add(DebugChainElement chainElement){
+        ourCauseEffectChain.add(chainElement);
+    }
 
-        //Here we sort the chain element when we ask for the chain
-        //TODO: Sort also on iteration !!!
-        ourCauseEffectChain.sort(Comparator.comparing(DebugChainElement::getOnlyLine));
+    public void changeLastValue(Object value, String description){
+        ourCauseEffectChain.get(ourCauseEffectChain.size() - 1).value = value;
+        ourCauseEffectChain.get(ourCauseEffectChain.size() - 1).description = description;
+    }
+
+    public List<ChainElement> getChain() {
 
         List<ChainElement> chainElementList = new ArrayList<ChainElement>();
         chainElementList.addAll(ourCauseEffectChain);
 
         return chainElementList;
+    }
+
+    public List<DebugChainElement> getDebugChain(){
+        return ourCauseEffectChain;
     }
 
     public void addChainList(List<DebugChainElement> chainElementList){

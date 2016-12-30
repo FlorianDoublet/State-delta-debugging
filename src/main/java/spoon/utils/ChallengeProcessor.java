@@ -50,12 +50,13 @@ public class ChallengeProcessor {
             //If it's the method that we are looking for.. Here "doIt"
             if(method.getSimpleName().equals("doIt")){
                 //We launch here all or different "process" to treat the case we need and transform the code
-                new CtLoopOperation(method, launcher);
+
                 new CtAssignmentOperations(method, launcher);
                 new CtVariableOperations(method, launcher);
                 new CtUnaryOperatorOperations(method, launcher);
-
-
+                new CtVariableReadOperations(method, launcher);
+                new CtLoopOperation(method, launcher);
+                //System.out.println(method.getBody().toString());
             }
         }
 
