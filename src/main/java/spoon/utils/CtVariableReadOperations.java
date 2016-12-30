@@ -30,7 +30,7 @@ public class CtVariableReadOperations {
 
             CtVariableRead variableRead = (CtVariableRead) obj;
 
-            String surrounded = "debug.FancyDDebugger.capture(" + variableRead + ", "
+            String surrounded = "utils.DebugManipulation.readVar(" + variableRead + ", "
                     + variableRead.getPosition().getLine() + ", \"" + variableRead.toString() + "\")";
             //Apply it
             final CtCodeSnippetExpression statementMethod = launcher.getFactory().Code().createCodeSnippetExpression(surrounded);

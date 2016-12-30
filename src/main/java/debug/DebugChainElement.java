@@ -43,12 +43,13 @@ public class DebugChainElement implements ChainElement {
     public String getDescription() {
         return this.description;
     }
+
     @Override
     public boolean equals(Object o) {
 		if(o instanceof DebugChainElement) {
 			DebugChainElement elem = (DebugChainElement)o;
-			if(this.line.equals(elem.getLine()) && this.description.equals(elem.getDescription()) 
-				&& this.iteration.equals(elem.getIteration()) && this.iteration.equals(elem.getVariable())) {
+			if(this.varName.equals(elem.varName) && this.getLine().equals(elem.getLine()) && this.value.equals(elem.value)
+				&& this.description.equals(elem.description) ) {
 				return true;
 			}
 		}

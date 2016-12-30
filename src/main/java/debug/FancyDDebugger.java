@@ -23,6 +23,7 @@ public class FancyDDebugger implements DDebugger<String>{
 
     public static DebugCauseEffectChain runtimeCauseEffectChain = new DebugCauseEffectChain();
 
+    public Object goodInput;
     public DebugCauseEffectChain goodChain = new DebugCauseEffectChain();
     public DebugCauseEffectChain badChain = new DebugCauseEffectChain();
 
@@ -42,7 +43,7 @@ public class FancyDDebugger implements DDebugger<String>{
         }
 
         //Then for each of our challengeInput tun the modifiedChallenge with it
-        for (String input: challenge.getInputs()){
+        for (Object input: challenge.getInputs()){
 
             System.out.println("Input : " + input + " : ");
             try{
@@ -50,7 +51,7 @@ public class FancyDDebugger implements DDebugger<String>{
                 modifiedChallenge.challenge(input);
                 //Capture the static capturedVars fill by DebugManipulation for the challenge we just run
                 listMapCapturedVar.add(DebugManipulation.capturedVars);
-                resultOfChallengeByInput.put(input, true);
+                goodInput = input;
 
                 goodChain.ourCauseEffectChain = new ArrayList<>(runtimeCauseEffectChain.ourCauseEffectChain);
 
@@ -58,7 +59,6 @@ public class FancyDDebugger implements DDebugger<String>{
                 //same
                 //If we are in the catch it mean that the challenge fail
                 listMapCapturedVar.add(DebugManipulation.capturedVars);
-                resultOfChallengeByInput.put(input, false);
 
                 badChain.ourCauseEffectChain = new ArrayList<>(runtimeCauseEffectChain.ourCauseEffectChain);
 
@@ -68,25 +68,7 @@ public class FancyDDebugger implements DDebugger<String>{
             runtimeCauseEffectChain.ourCauseEffectChain = new ArrayList<>();
 
         }
-        /*Ddmin ddmin = new Ddmin(challengeProcessor,resultOfChallengeByInput,listMapCapturedVar,modifiedChallenge);
-        ddmin.process();
-        //then we wll build the CauseEffectChain for each previous run
-        //thanks to their CapturedVar LinkedMap
-        for(Map<String, CapturedVar> capturedMap : listMapCapturedVar){
-            DebugCauseEffectChain causeEffectChain = new DebugCauseEffectChain();
-            //build the cause effect chain
-            for (Map.Entry<String, CapturedVar> entry : capturedMap.entrySet()) {
-                CapturedVar value = entry.getValue();
-                causeEffectChain.addChainList(value.buildChainElementList());
-            }
 
-            //print it
-            System.out.println("\n\n******** PROGRAM LAUNCH **********\n");
-            for(ChainElement chaineElement : causeEffectChain.getChain()){
-                System.out.println("line " + chaineElement.getLine() + " the var " + chaineElement.getVariable() + " " + chaineElement.getDescription());
-            }
-
-        }*/
         System.out.println(" good chain : ");
         for(ChainElement chainElement : goodChain.getChain()){
             System.out.println("line " + chainElement.getLine() + " the var " + chainElement.getVariable() + " " + chainElement.getDescription());
@@ -96,6 +78,22 @@ public class FancyDDebugger implements DDebugger<String>{
         for(ChainElement chainElement : badChain.getChain()){
             System.out.println("line " + chainElement.getLine() + " the var " + chainElement.getVariable() + " " + chainElement.getDescription());
         }
+
+        Ddmin ddmin = new Ddmin(goodInput, modifiedChallenge);
+
+        List<DebugChainElement> diffs = ddmin.getDiffs(goodChain.getDebugChain(), badChain.getDebugChain());
+        System.out.println("\n ********  DIFFS ******* \n");
+        for(DebugChainElement diff : diffs){
+            System.out.println("line " + diff.getLine() + " the var " + diff.getVariable() + " " + diff.getDescription());
+        }
+
+
+        System.out.println("\n ******* CAUSE EFFECT CHAIN :  ******");
+        List<DebugChainElement> causeEffectChain =  ddmin.process(diffs);
+        for(DebugChainElement chainElement : causeEffectChain){
+            System.out.println("line " + chainElement.getLine() + " the var " + chainElement.getVariable() + " " + chainElement.getDescription());
+        }
+
 
 
 

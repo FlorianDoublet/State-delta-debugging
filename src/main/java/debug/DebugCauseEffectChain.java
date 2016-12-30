@@ -27,16 +27,16 @@ public class DebugCauseEffectChain implements CauseEffectChain {
         ourCauseEffectChain.get(ourCauseEffectChain.size() - 1).description = description;
     }
 
-    /*
-    return a sorted chainElement
-    TODO: Sort also on iteration !!!
-     */
     public List<ChainElement> getChain() {
 
         List<ChainElement> chainElementList = new ArrayList<ChainElement>();
         chainElementList.addAll(ourCauseEffectChain);
 
         return chainElementList;
+    }
+
+    public List<DebugChainElement> getDebugChain(){
+        return ourCauseEffectChain;
     }
 
     public void addChainList(List<DebugChainElement> chainElementList){

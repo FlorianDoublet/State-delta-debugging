@@ -19,6 +19,7 @@ public class CapturedVar {
 	public String name;
 	public Class varClass;
 	public Object lastVal;
+	public Boolean wantToTransformInChainElement = false;
 	public List<StateOfVar> states = new ArrayList<>();
 
 
@@ -27,6 +28,17 @@ public class CapturedVar {
 		this.varClass = varClass;
 		this.lastVal = val;
 		StateOfVar stateOfVar = new StateOfVar(line, val, iteration);
+		addState(stateOfVar);
+	}
+
+	//Really ugly technique to avoid unwanted chainElement
+	//hope it will be temporary
+	public CapturedVar(int line, Object val, String name, Class varClass, String iteration, Boolean wantToTransformInChainElement) {
+		this.name = name;
+		this.varClass = varClass;
+		this.lastVal = val;
+		StateOfVar stateOfVar = new StateOfVar(line, val, iteration);
+		this.wantToTransformInChainElement = wantToTransformInChainElement;
 		addState(stateOfVar);
 	}
 
@@ -42,8 +54,10 @@ public class CapturedVar {
 
 	private void addState(StateOfVar stateOfVar){
 		states.add(stateOfVar);
-		DebugChainElement debugChainElement = buildChainElement(stateOfVar);
-		FancyDDebugger.runtimeCauseEffectChain.add(debugChainElement);
+		if(!wantToTransformInChainElement) {
+			DebugChainElement debugChainElement = buildChainElement(stateOfVar);
+			FancyDDebugger.runtimeCauseEffectChain.add(debugChainElement);
+		}
 	}
 
 	//Transform or CapturedVar with is States into a ChainElement list

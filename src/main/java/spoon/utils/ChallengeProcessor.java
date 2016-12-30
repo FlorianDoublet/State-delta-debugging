@@ -54,10 +54,9 @@ public class ChallengeProcessor {
                 new CtAssignmentOperations(method, launcher);
                 new CtVariableOperations(method, launcher);
                 new CtUnaryOperatorOperations(method, launcher);
+                new CtVariableReadOperations(method, launcher);
                 new CtLoopOperation(method, launcher);
-                System.out.println(method.getBody().toString());
-
-
+                //System.out.println(method.getBody().toString());
             }
         }
 

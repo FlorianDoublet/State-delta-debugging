@@ -11,6 +11,8 @@ public class StateOfVar {
     public Object newVal = null;
     public String binaryOperator;
     public String iteration = "";
+    //special param only for new value to insert
+    public boolean reached = false;
 
     public StateOfVar(int line, Object newVal, String iteration){
         this.line = line;
