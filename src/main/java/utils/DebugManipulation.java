@@ -133,7 +133,7 @@ public class DebugManipulation {
         //then return is value
         for(StateOfVar replacementState : replacementVar.states){
             if(compareTwoState(lastState, replacementState)){
-                return (T)replacementState.oldVal;
+                return (T)replacementState.newVal;
             }
         }
 

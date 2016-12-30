@@ -16,6 +16,7 @@ public class MarkupChallenge implements Challenge<String>{
 
     public List<String> getInputs() {
         return Arrays.asList("\"<b>foo</b>\"", "\'<b>foo</b>\'");
+    	//return Arrays.asList("Y","M");
     }
 
 
@@ -23,7 +24,15 @@ public class MarkupChallenge implements Challenge<String>{
      * Remove Html Markup method
      */
 	public Object doIt(String s) {
-		Boolean tag = false;
+//		String mars = "ARS";
+//		System.out.println("ATTENTION MARS ARRIVE");
+//		mars = s + mars;
+//		System.out.println("MARS :"  + mars);
+//		if(!mars.equals("MARS")) {
+//			throw new RuntimeException("done");
+//		}
+//		return "coucou";
+				Boolean tag = false;
         Boolean quote = false;
         String out = "";
         for(Character c : s.toCharArray()){

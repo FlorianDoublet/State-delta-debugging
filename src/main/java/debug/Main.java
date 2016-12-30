@@ -1,15 +1,6 @@
 package debug;
 
-import fr.univ_lille1.m2iagl.dd.CauseEffectChain;
-import fr.univ_lille1.m2iagl.dd.ChainElement;
 import fr.univ_lille1.m2iagl.dd.Challenge;
-import spoon.Launcher;
-import spoon.utils.ChallengeProcessor;
-import utils.CapturedVar;
-
-import java.util.Map;
-
-import static utils.DebugManipulation.capturedVars;
 
 
 /**

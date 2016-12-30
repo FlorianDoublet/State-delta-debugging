@@ -115,7 +115,8 @@ public class Ddmin {
 							tmpCapturedVar.states.clear();
 							tmpCapturedVar.states.add(tmpGoodVarState.getRight());
 							// We put VAR in list to apply this update
-							DebugManipulation.capturedVars.put(tmpFailedVarState.getLeft().name,tmpCapturedVar);
+							System.out.println("On insère le changement VAR NAME : " + tmpFailedVarState.getLeft().name + " VAR : " + tmpCapturedVar);
+							DebugManipulation.capturedVarsToReplaceValues.put(tmpFailedVarState.getLeft().name,tmpCapturedVar);
 							// HERE PROCESS CHALLENGE WITH NEW VALUE
 							try {
 							challenge.challenge(currentResult2.getKey());

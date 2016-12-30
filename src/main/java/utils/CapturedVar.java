@@ -89,4 +89,10 @@ public class CapturedVar {
 			return false;
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "CapturedVar [name=" + name + ", varClass=" + varClass + ", lastVal=" + lastVal + ", states=" + states
+				+ ", chainElementList=" + chainElementList + "]";
+	}
 }
