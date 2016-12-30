@@ -1,6 +1,8 @@
 package utils;
 
+import debug.Ddmin;
 import debug.DebugChainElement;
+import debug.FancyDDebugger;
 import fr.univ_lille1.m2iagl.dd.ChainElement;
 
 import java.util.ArrayList;
@@ -18,38 +20,42 @@ public class CapturedVar {
 	public Class varClass;
 	public Object lastVal;
 	public List<StateOfVar> states = new ArrayList<>();
-	public List<DebugChainElement> chainElementList = new ArrayList<DebugChainElement>();
 
 
 	public CapturedVar(int line, Object val, String name, Class varClass, String iteration) {
 		this.name = name;
 		this.varClass = varClass;
 		this.lastVal = val;
-		states.add(new StateOfVar(line, val, iteration));
+		StateOfVar stateOfVar = new StateOfVar(line, val, iteration);
+		addState(stateOfVar);
 	}
 
 	public void addState(int line, Object newVal, String iteration){
-		states.add(new StateOfVar(line, this.lastVal, newVal, iteration));
+		StateOfVar stateOfVar = new StateOfVar(line, this.lastVal, newVal, iteration);
+		addState(stateOfVar);
 	}
 
 	public void addState(int line, Object newVal, String binaryOperator, String iteration){
-		states.add(new StateOfVar(line, this.lastVal, newVal, binaryOperator, iteration));
+		StateOfVar stateOfVar = new StateOfVar(line, this.lastVal, newVal, binaryOperator, iteration);
+		addState(stateOfVar);
+	}
+
+	private void addState(StateOfVar stateOfVar){
+		states.add(stateOfVar);
+		DebugChainElement debugChainElement = buildChainElement(stateOfVar);
+		FancyDDebugger.runtimeCauseEffectChain.add(debugChainElement);
 	}
 
 	//Transform or CapturedVar with is States into a ChainElement list
-	public List<DebugChainElement> buildChainElementList(){
-		for(StateOfVar state : states){
-			int line = state.line;
-			String description = "";
-			if(state.oldVal == null){
-				description += "was initialized to " + state.newVal.toString();
-			} else {
-				description += " became " + state.newVal.toString();
-			}
-			chainElementList.add(new DebugChainElement(line, name, description, state.iteration));
+	private DebugChainElement buildChainElement(StateOfVar state){
+		int line = state.line;
+		String description = "";
+		if(state.oldVal == null){
+			description += "was initialized to " + state.newVal.toString();
+		} else {
+			description += " became " + state.newVal.toString();
 		}
-		return chainElementList;
-
+		return new DebugChainElement(line, name, state.newVal, description, state.iteration);
 	}
 
 	/**
@@ -58,6 +64,8 @@ public class CapturedVar {
 	 */
 	public void changeLastNewValue(Object newVal){
 		states.get(states.size() - 1).newVal = newVal;
+		String description = " became " + newVal.toString();
+		FancyDDebugger.runtimeCauseEffectChain.changeLastValue(newVal, description);
 	}
 
 	//Used to transform this object in a Hashable one, but only based on the name of the Var
@@ -90,9 +98,9 @@ public class CapturedVar {
 		}
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "CapturedVar [name=" + name + ", varClass=" + varClass + ", lastVal=" + lastVal + ", states=" + states
 				+ ", chainElementList=" + chainElementList + "]";
-	}
+	}*/
 }

@@ -21,6 +21,10 @@ import utils.DebugManipulation;
  */
 public class FancyDDebugger implements DDebugger<String>{
 
+    public static DebugCauseEffectChain runtimeCauseEffectChain = new DebugCauseEffectChain();
+
+    public DebugCauseEffectChain goodChain = new DebugCauseEffectChain();
+    public DebugCauseEffectChain badChain = new DebugCauseEffectChain();
 
     public DebugCauseEffectChain debug(Challenge<String> challenge) {
 
@@ -47,17 +51,24 @@ public class FancyDDebugger implements DDebugger<String>{
                 //Capture the static capturedVars fill by DebugManipulation for the challenge we just run
                 listMapCapturedVar.add(DebugManipulation.capturedVars);
                 resultOfChallengeByInput.put(input, true);
+
+                goodChain.ourCauseEffectChain = new ArrayList<>(runtimeCauseEffectChain.ourCauseEffectChain);
+
             } catch (Exception e){
                 //same
                 //If we are in the catch it mean that the challenge fail
                 listMapCapturedVar.add(DebugManipulation.capturedVars);
                 resultOfChallengeByInput.put(input, false);
+
+                badChain.ourCauseEffectChain = new ArrayList<>(runtimeCauseEffectChain.ourCauseEffectChain);
+
             }
             //We reset the static map contained in DebugManipulation, for the next run of challenge
             DebugManipulation.capturedVars = new LinkedHashMap<>();
+            runtimeCauseEffectChain.ourCauseEffectChain = new ArrayList<>();
 
         }
-        Ddmin ddmin = new Ddmin(challengeProcessor,resultOfChallengeByInput,listMapCapturedVar,modifiedChallenge);
+        /*Ddmin ddmin = new Ddmin(challengeProcessor,resultOfChallengeByInput,listMapCapturedVar,modifiedChallenge);
         ddmin.process();
         //then we wll build the CauseEffectChain for each previous run
         //thanks to their CapturedVar LinkedMap
@@ -74,6 +85,16 @@ public class FancyDDebugger implements DDebugger<String>{
             for(ChainElement chaineElement : causeEffectChain.getChain()){
                 System.out.println("line " + chaineElement.getLine() + " the var " + chaineElement.getVariable() + " " + chaineElement.getDescription());
             }
+
+        }*/
+        System.out.println(" good chain : ");
+        for(ChainElement chainElement : goodChain.getChain()){
+            System.out.println("line " + chainElement.getLine() + " the var " + chainElement.getVariable() + " " + chainElement.getDescription());
+        }
+        System.out.println("\n ********* \n");
+        System.out.println(" bad chain : ");
+        for(ChainElement chainElement : badChain.getChain()){
+            System.out.println("line " + chainElement.getLine() + " the var " + chainElement.getVariable() + " " + chainElement.getDescription());
         }
 
 

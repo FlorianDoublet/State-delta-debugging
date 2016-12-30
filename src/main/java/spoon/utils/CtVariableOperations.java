@@ -48,7 +48,7 @@ public class CtVariableOperations {
                String addedCapture = "utils.DebugManipulation.capture(" + variable.getSimpleName() + ", "
                        + variable.getPosition().getLine() + ", \"" + variable.getSimpleName() +"\")";
                final CtCodeSnippetStatement statementMethod = launcher.getFactory().Code().createCodeSnippetStatement(addedCapture);
-               variable.insertAfter(statementMethod);
+               variable.insertBefore(statementMethod);
            }
 
         }

@@ -12,10 +12,12 @@ public class DebugChainElement implements ChainElement {
     public String iteration;
     public String varName;
     public String description;
+    public Object value;
 
-    public DebugChainElement(int line, String varName, String description, String iteration) {
+    public DebugChainElement(int line, String varName, Object value, String description, String iteration) {
         this.line = line;
         this.varName = varName;
+        this.value = value;
         this.description = description;
         //iteration are considered as a String
         this.iteration = iteration;
@@ -57,7 +59,4 @@ public class DebugChainElement implements ChainElement {
 		return iteration;
 	}
 
-	public void setIteration(String iteration) {
-		this.iteration = iteration;
-	}
 }
