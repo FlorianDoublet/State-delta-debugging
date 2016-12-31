@@ -13,6 +13,9 @@ public class StateOfVar {
     public String iteration = "";
     //special param only for new value to insert
     public boolean reached = false;
+    //store the complete value of an object after an assignation
+    // the value of the x in .... += x is stored as newValue
+    public Object completeState;
 
     public StateOfVar(int line, Object newVal, String iteration){
         this.line = line;
@@ -34,16 +37,5 @@ public class StateOfVar {
         this.binaryOperator = binaryOperator;
         this.iteration = iteration;
     }
-
-    /**
-     * Check if the state of var is comparable to other one
-     * @param stateVariableOfSecondExecution
-     * @return
-     */
-	public boolean isStateComparableTo(StateOfVar stateVariableOfSecondExecution) {
-		
-		return this.line == stateVariableOfSecondExecution.line 
-				&& this.iteration.equals(stateVariableOfSecondExecution.iteration);
-	}
 
 }

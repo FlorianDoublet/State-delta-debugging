@@ -23,6 +23,7 @@ public class CapturedVar {
 	public List<StateOfVar> states = new ArrayList<>();
 
 
+
 	public CapturedVar(int line, Object val, String name, Class varClass, String iteration) {
 		this.name = name;
 		this.varClass = varClass;
@@ -73,13 +74,14 @@ public class CapturedVar {
 	}
 
 	/**
-	 * change the last value of the captured var into the new one given
-	 * @param newVal the new value to replace the older one
+	 * change the last completeState of the captured var into the new one given
+	 * it's used after an assignation operation
+	 * @param completeState the new value to replace the older one
 	 */
-	public void changeLastNewValue(Object newVal){
-		states.get(states.size() - 1).newVal = newVal;
-		String description = " became " + newVal.toString();
-		FancyDDebugger.runtimeCauseEffectChain.changeLastValue(newVal, description);
+	public void updateLastCompleteStateValue(Object completeState){
+		states.get(states.size() - 1).completeState = completeState;
+		String description = " became " + completeState.toString();
+		FancyDDebugger.runtimeCauseEffectChain.updateLastCompleteStateValue(completeState, description);
 	}
 
 	//Used to transform this object in a Hashable one, but only based on the name of the Var
