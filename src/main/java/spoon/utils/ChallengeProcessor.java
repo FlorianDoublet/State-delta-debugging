@@ -22,9 +22,11 @@ import spoon.support.QueueProcessingManager;
 public class ChallengeProcessor {
 
     public Launcher launcher;
+    public String challengeName;
 
-    public ChallengeProcessor(Launcher launcher){
+    public ChallengeProcessor(Launcher launcher, String challengeName){
         this.launcher = launcher;
+        this.challengeName = challengeName;
     }
 
     public Challenge process() throws Exception {
@@ -32,7 +34,7 @@ public class ChallengeProcessor {
         //create an empty snippet
         CtCodeSnippetStatement snippet = launcher.getFactory().Core().createCodeSnippetStatement();
         //Load the CtClass of our challenge
-        CtClass challenge = (CtClass) launcher.getFactory().Package().getRootPackage().getElements(new NameFilter("MarkupChallenge")).get(0);
+        CtClass challenge = (CtClass) launcher.getFactory().Package().getRootPackage().getElements(new NameFilter(challengeName)).get(0);
 
         //Our futur class of the challenge
         Class<?> challengeClass = null;
