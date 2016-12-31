@@ -27,23 +27,15 @@ public class FancyDDebugger implements DDebugger<String>{
     public DebugCauseEffectChain goodChain = new DebugCauseEffectChain();
     public DebugCauseEffectChain badChain = new DebugCauseEffectChain();
 
-    public DebugCauseEffectChain debug(Challenge<String> challenge) {
+    public DebugCauseEffectChain debug(Challenge modifiedChallenge) {
 
-        ChallengeProcessor challengeProcessor = new ChallengeProcessor(this.createLauncher());
-        Challenge modifiedChallenge = null;
+
         //List of map of CapturedVar, will be used to store all CapturedVar Map instance of each run of the modified challenge
         List<Map<String, CapturedVar>> listMapCapturedVar = new ArrayList<>();
-        // Result of each challenge
-        Map<String,Boolean> resultOfChallengeByInput = new HashMap<String,Boolean>();
-        try {
-            //Our ChallengeProcessor create the modifiedChallenge
-            modifiedChallenge = challengeProcessor.process();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
         //Then for each of our challengeInput tun the modifiedChallenge with it
-        for (Object input: challenge.getInputs()){
+        for (Object input: modifiedChallenge.getInputs()){
 
             System.out.println("Input : " + input + " : ");
             try{
@@ -69,23 +61,15 @@ public class FancyDDebugger implements DDebugger<String>{
 
         }
 
-        System.out.println(" good chain : ");
-        for(ChainElement chainElement : goodChain.getChain()){
-            System.out.println("line " + chainElement.getLine() + " the var " + chainElement.getVariable() + " " + chainElement.getDescription());
-        }
-        System.out.println("\n ********* \n");
-        System.out.println(" bad chain : ");
-        for(ChainElement chainElement : badChain.getChain()){
-            System.out.println("line " + chainElement.getLine() + " the var " + chainElement.getVariable() + " " + chainElement.getDescription());
-        }
+
+        //printGoodChain(goodChain);
+        //printBadChain(badChain);
 
         Ddmin ddmin = new Ddmin(goodInput, modifiedChallenge);
 
         List<DebugChainElement> diffs = ddmin.getDiffs(goodChain.getDebugChain(), badChain.getDebugChain());
-        System.out.println("\n ********  DIFFS ******* \n");
-        for(DebugChainElement diff : diffs){
-            System.out.println("line " + diff.getLine() + " the var " + diff.getVariable() + " " + diff.getDescription());
-        }
+
+        //printdiffs(diffs);
 
 
         System.out.println("\n ******* CAUSE EFFECT CHAIN :  ******");
@@ -94,30 +78,31 @@ public class FancyDDebugger implements DDebugger<String>{
             System.out.println("line " + chainElement.getLine() + " the var " + chainElement.getVariable() + " " + chainElement.getDescription());
         }
 
-
-
-
-
         return null;
     }
 
-    /**
-     * Create the launcher.
-     * @return
-     */
-    public Launcher createLauncher() {
-
-        final Launcher launcher = new Launcher();
-        launcher.setArgs(new String[] {"--source-classpath","target/classes"});
-        /**
-         * We say that we are going to pick-up our .java  challenges file in the resources directory
-         */
-        launcher.addInputResource("src/main/resources/");
-        launcher.buildModel();
-
-        return launcher;
-
+    public void printGoodChain(DebugCauseEffectChain goodChain){
+        System.out.println("\n ********  GOOD CHAIN ******* \n");
+        for(ChainElement chainElement : goodChain.getChain()){
+            System.out.println("line " + chainElement.getLine() + " the var " + chainElement.getVariable() + " " + chainElement.getDescription());
+        }
     }
+
+    public void printBadChain(DebugCauseEffectChain badChain){
+        System.out.println("\n ********  BAD CHAIN ******* \n");
+        for(ChainElement chainElement : badChain.getChain()){
+            System.out.println("line " + chainElement.getLine() + " the var " + chainElement.getVariable() + " " + chainElement.getDescription());
+        }
+    }
+
+    public void printdiffs(List<DebugChainElement> diffs){
+        System.out.println("\n ********  DIFFS ******* \n");
+        for(DebugChainElement diff : diffs){
+            System.out.println("line " + diff.getLine() + " the var " + diff.getVariable() + " " + diff.getDescription());
+        }
+    }
+
+
 
 
 
