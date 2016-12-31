@@ -22,8 +22,8 @@ public class DebugCauseEffectChain implements CauseEffectChain {
         ourCauseEffectChain.add(chainElement);
     }
 
-    public void changeLastValue(Object value, String description){
-        ourCauseEffectChain.get(ourCauseEffectChain.size() - 1).value = value;
+    public void updateLastCompleteStateValue(Object value, String description){
+        ourCauseEffectChain.get(ourCauseEffectChain.size() - 1).completeState = value;
         ourCauseEffectChain.get(ourCauseEffectChain.size() - 1).description = description;
     }
 

@@ -67,9 +67,8 @@ public class DebugManipulation {
      * @param inputName
      */
     public static void captureNewVal(Object inputVal, String inputName ){
-        //temporary disable
-        /*capturedVars.get(inputName).changeLastNewValue(inputVal);
-        waitForNewValue = false;*/
+        capturedVars.get(inputName).updateLastCompleteStateValue(inputVal);
+        waitForNewValue = false;
     }
 
     /**

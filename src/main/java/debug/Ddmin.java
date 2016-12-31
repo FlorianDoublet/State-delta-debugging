@@ -3,18 +3,9 @@ package debug;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
-
-import fr.univ_lille1.m2iagl.dd.ChainElement;
 import fr.univ_lille1.m2iagl.dd.Challenge;
-import spoon.utils.ChallengeProcessor;
 import utils.CapturedVar;
 import utils.DebugManipulation;
-import utils.StateOfVar;
 
 public class Ddmin {
 
@@ -64,26 +55,62 @@ public class Ddmin {
 		List<DebugChainElement> causes = new ArrayList<>();
 
 		List<DebugChainElement> diffsToTest = new ArrayList<>(diffs);
+		List<List<DebugChainElement>> powerSetOfDiffsToTest = powerset(diffsToTest);
+		//remove the empty set
+		powerSetOfDiffsToTest.remove(0);
 
-		DebugChainElement temporaryRemoved = null;
-		while (!diffsToTest.isEmpty()) {
-			Boolean programFail = !test(diffsToTest);
-			if (!programFail) {
-				break; // if the program don't fail, we break the loop
-			} else {
-				if(temporaryRemoved != null){
-					causes.add(temporaryRemoved);
+		List<List<DebugChainElement>> crashResponsibleDiffs = smallestCrashDiffs(powerSetOfDiffsToTest);
+
+		for(List<DebugChainElement> diffsCrash : crashResponsibleDiffs){
+			for(DebugChainElement diff : diffsCrash){
+				if(!causes.contains(diff)){
+					causes.add(diff);
 				}
-				temporaryRemoved = diffsToTest.remove(0);
-				programFail = !test(diffsToTest);
+			}
+		}
+		return causes;
+	}
+
+	public List<List<DebugChainElement>> smallestCrashDiffs(List<List<DebugChainElement>> diffsCombinations){
+		List<List<DebugChainElement>> smallestDiffs = new ArrayList<>();
+		int smallestDiffsSize = Integer.MAX_VALUE;
+		for(List<DebugChainElement> diffs : diffsCombinations){
+			if(diffs.size() > smallestDiffsSize){
+				break;
+			}else {
+				Boolean programFail = !test(diffs);
+				if (programFail) {
+					smallestDiffsSize = diffs.size();
+					smallestDiffs.add(diffs);
+				}
+			}
+		}
+		return smallestDiffs;
+	}
+
+
+	public static List<List<DebugChainElement>> powerset(List<DebugChainElement> list) {
+		List<List<DebugChainElement>> ps = new ArrayList<List<DebugChainElement>>();
+		ps.add(new ArrayList<DebugChainElement>());   // add the empty set
+
+		// for every item in the original list
+		for (DebugChainElement item : list) {
+			List<List<DebugChainElement>> newPs = new ArrayList<List<DebugChainElement>>();
+
+			for (List<DebugChainElement> subset : ps) {
+				// copy all of the current powerset's subsets
+				newPs.add(subset);
+
+				// plus the subsets appended with the current item
+				List<DebugChainElement> newSubset = new ArrayList<DebugChainElement>(subset);
+				newSubset.add(item);
+				newPs.add(newSubset);
 			}
 
+			// powerset is now powerset of list.subList(0, list.indexOf(item)+1)
+			ps = newPs;
 		}
-		if (temporaryRemoved != null) {
-			causes.add(temporaryRemoved);
-		}
-
-		return causes;
+		return ps;
 	}
 
 
