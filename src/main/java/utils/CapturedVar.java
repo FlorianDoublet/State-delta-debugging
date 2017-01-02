@@ -85,6 +85,10 @@ public class CapturedVar {
 		FancyDDebugger.runtimeCauseEffectChain.updateLastCompleteStateValue(completeState, description);
 	}
 
+	public void updateLastDescription(String description){
+		FancyDDebugger.runtimeCauseEffectChain.updateLastDescription(description);
+	}
+
 	//Used to transform this object in a Hashable one, but only based on the name of the Var
 	@Override
 	public int hashCode(){

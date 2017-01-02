@@ -1,5 +1,7 @@
 
 import fr.univ_lille1.m2iagl.dd.Challenge;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,7 +44,7 @@ public class MarkupChallenge implements Challenge<String>{
 	public void challenge(String input) {
         Boolean tag = false;
         Boolean quote = false;
-        String out = "";
+        List<String> out = new ArrayList<>();
         for(Character c : input.toCharArray()){
             if(c == '<' && !quote){
                 tag = true;
@@ -51,9 +53,10 @@ public class MarkupChallenge implements Challenge<String>{
             } else if(c == '\"' || (c == '\'' && tag)){
                 quote = !quote;
             } else if (!tag){
-                out += c;
+                out.add(c.toString());
             }
         }
+
         assert !out.contains("<");
 
 	}

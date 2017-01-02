@@ -68,6 +68,21 @@ public class DebugManipulation {
         return replaceValueIfExist(inputVal, capturedVars.get(inputName), false);
     }
 
+    public static <T> T captureArg(T argVal, int line, String argName, String methodName, String variableCalledName){
+
+        if(capturedVars.containsKey(variableCalledName)){
+            capturedVars.get(variableCalledName).addState(line, argVal, buildIterationString());
+        } else {
+            capturedVars.put(variableCalledName, new CapturedVar(line, argVal, variableCalledName, buildIterationString()));
+        }
+        String description = " has run the method : " + methodName + " --> args : (name = " + argName + " || value = " + argVal + ")";
+        capturedVars.get(variableCalledName).updateLastDescription(description);
+
+        //return the input OR if it exist, another value to replace it
+        return replaceValueIfExist(argVal, capturedVars.get(variableCalledName), false);
+    }
+
+
     /**
      * Used to capture the new value of an input after an assignment which isn't "="
      * @param inputVal

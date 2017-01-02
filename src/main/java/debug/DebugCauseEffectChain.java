@@ -27,6 +27,10 @@ public class DebugCauseEffectChain implements CauseEffectChain {
         ourCauseEffectChain.get(ourCauseEffectChain.size() - 1).description = description;
     }
 
+    public void updateLastDescription(String description){
+        ourCauseEffectChain.get(ourCauseEffectChain.size() - 1).description = description;
+    }
+
     public List<ChainElement> getChain() {
 
         List<ChainElement> chainElementList = new ArrayList<ChainElement>();
