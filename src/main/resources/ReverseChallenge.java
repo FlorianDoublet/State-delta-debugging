@@ -1,5 +1,3 @@
-package challenge;
-
 import fr.univ_lille1.m2iagl.dd.Challenge;
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +13,7 @@ public class ReverseChallenge implements Challenge<String>{
     }
 
     public List<String> getInputs() {
-        return Arrays.asList("Cornichon de Bordeaux", "Carotte de Chamonix\n");
+        return Arrays.asList("Cornichon de Bordeaux", "Carotte de Chamonixx\n");
     }
 
 

@@ -15,7 +15,7 @@ public class ReverseChallenge implements Challenge<String>{
     }
 
     public List<String> getInputs() {
-        return Arrays.asList("Cornichon de Bordeaux", "Carotte de Chamonix\n");
+        return Arrays.asList("Cornichon de Bordeaux", "Carotte de Chamonixx\n");
     }
 
 
@@ -28,7 +28,7 @@ public class ReverseChallenge implements Challenge<String>{
 
 	public void challenge(String input) {
 		String inputReverse = "";
-		for(int i = input.length()-1 ; i >= 0 ; i --) {
+		for(int i = input.length()-1 ; i >= 0 ; i--) {
 			inputReverse += input.charAt(i);
 		}
 		if(inputReverse.substring(0,1).equals("x"))
