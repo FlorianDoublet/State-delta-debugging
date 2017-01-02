@@ -31,7 +31,9 @@ public class ReverseChallenge implements Challenge<String>{
 		for(int i = input.length()-1 ; i >= 0 ; i --) {
 			inputReverse += input.charAt(i);
 		}
-		assert inputReverse.substring(inputReverse.length()-1).equals("x");
+		if(inputReverse.substring(0,1).equals("x"))
+			return;
+		else
+			throw new RuntimeException();
 	}
-
 }
