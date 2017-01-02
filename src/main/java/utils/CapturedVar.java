@@ -62,7 +62,7 @@ public class CapturedVar {
 	}
 
 	//Transform or CapturedVar with is States into a ChainElement list
-	private DebugChainElement buildChainElement(StateOfVar state){
+	protected DebugChainElement buildChainElement(StateOfVar state){
 		int line = state.line;
 		String description = "";
 		if(state.oldVal == null){
