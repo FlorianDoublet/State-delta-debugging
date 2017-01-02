@@ -15,6 +15,13 @@ public class DebugManipulation {
     public static boolean waitForNewValue = false;
     public static LinkedHashMap<Integer, Integer> iterations = new LinkedHashMap<>();
 
+    public static void resetAll(){
+        capturedVars = new LinkedHashMap<>();
+        capturedVarsToReplaceValues = new LinkedHashMap<>();
+        waitForNewValue = false;
+        iterations = new LinkedHashMap<>();
+    }
+
     /**
      * Capture the value of the CtVariableOperation and return the input
      * this method need to surround the input we want to capture
@@ -30,7 +37,7 @@ public class DebugManipulation {
     	if(capturedVars.containsKey(inputName)){
             capturedVars.get(inputName).addState(line, inputVal, buildIterationString());
         } else {
-            capturedVars.put(inputName, new CapturedVar(line, inputVal, inputName, inputVal.getClass(), buildIterationString()));
+            capturedVars.put(inputName, new CapturedVar(line, inputVal, inputName, buildIterationString()));
         }
         //return the input OR if it exist, another value to replace it
         return replaceValueIfExist(inputVal, capturedVars.get(inputName), false);
@@ -55,7 +62,7 @@ public class DebugManipulation {
         if(capturedVars.containsKey(inputName)){
             capturedVars.get(inputName).addState(line, inputVal, binaryOperator, buildIterationString());
         } else {
-            capturedVars.put(inputName, new CapturedVar(line, inputVal, inputName, inputVal.getClass(), buildIterationString()));
+            capturedVars.put(inputName, new CapturedVar(line, inputVal, inputName, buildIterationString()));
         }
         //return the input OR if it exist, another value to replace it
         return replaceValueIfExist(inputVal, capturedVars.get(inputName), false);

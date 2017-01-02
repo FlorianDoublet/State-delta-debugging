@@ -50,7 +50,7 @@ public class ChallengeProcessor {
         for(Object e : challenge.getElements(new TypeFilter(CtMethod.class))) {
             CtMethod method = (CtMethod)e;
             //If it's the method that we are looking for.. Here "doIt"
-            if(method.getSimpleName().equals("doIt")){
+            if(method.getSimpleName().equals("challenge")){
                 //We launch here all or different "process" to treat the case we need and transform the code
 
                 new CtAssignmentOperations(method, launcher);

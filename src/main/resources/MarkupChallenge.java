@@ -1,6 +1,4 @@
-
 import fr.univ_lille1.m2iagl.dd.Challenge;
-import utils.DebugManipulation;
 
 import java.util.Arrays;
 import java.util.List;
@@ -42,11 +40,21 @@ public class MarkupChallenge implements Challenge<String>{
 	}
 
 	public void challenge(String input) {
-		String res = (String) doIt(input);
-
-        if(res.contains("<")) {
-            throw new RuntimeException();
+        Boolean tag = false;
+        Boolean quote = false;
+        String out = "";
+        for(Character c : input.toCharArray()){
+            if(c == '<' && !quote){
+                tag = true;
+            } else if (c == '>' && !quote){
+                tag = false;
+            } else if(c == '\"' || (c == '\'' && tag)){
+                quote = !quote;
+            } else if (!tag){
+                out += c;
+            }
         }
+        assert !out.contains("<");
 		
 	}
 

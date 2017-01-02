@@ -47,13 +47,19 @@ public class FancyDDebugger implements DDebugger<String>{
 
                 goodChain.ourCauseEffectChain = new ArrayList<>(runtimeCauseEffectChain.ourCauseEffectChain);
 
-            } catch (Exception e){
+            } catch (AssertionError e){
                 //same
                 //If we are in the catch it mean that the challenge fail
                 listMapCapturedVar.add(DebugManipulation.capturedVars);
 
                 badChain.ourCauseEffectChain = new ArrayList<>(runtimeCauseEffectChain.ourCauseEffectChain);
 
+            } catch (Exception e){
+                //same
+                //If we are in the catch it mean that the challenge fail
+                listMapCapturedVar.add(DebugManipulation.capturedVars);
+
+                badChain.ourCauseEffectChain = new ArrayList<>(runtimeCauseEffectChain.ourCauseEffectChain);
             }
             //We reset the static map contained in DebugManipulation, for the next run of challenge
             DebugManipulation.capturedVars = new LinkedHashMap<>();

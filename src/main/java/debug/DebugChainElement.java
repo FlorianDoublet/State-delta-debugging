@@ -52,9 +52,17 @@ public class DebugChainElement implements ChainElement {
 			DebugChainElement elem = (DebugChainElement)o;
 			//We only look for "value" and not "completeState" because only element affected by a previous assignation
             //have this completeState, and it's not a criteria for our diffs
-			if(this.varName.equals(elem.varName) && this.getLine().equals(elem.getLine()) && this.value.equals(elem.value)
-				 ) {
-				return true;
+            Boolean valueIsNull = false;
+            if(this.value == null || elem.value == null){
+                valueIsNull = true;
+            }
+			if(this.varName.equals(elem.varName) && this.getLine().equals(elem.getLine())){
+                if (!valueIsNull){
+                    if (this.value.equals(elem.value)) return true;
+                } else {
+                    if(this.value == null && elem.value == null) return true;
+                }
+
 			}
 		}
     	return false;
