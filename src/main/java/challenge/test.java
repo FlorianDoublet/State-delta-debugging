@@ -1,4 +1,4 @@
-package debug;
+package challenge;
 
 import challenge.ReverseChallenge;
 
