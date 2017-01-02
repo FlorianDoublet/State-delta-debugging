@@ -1,4 +1,7 @@
+
+
 import fr.univ_lille1.m2iagl.dd.Challenge;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,7 +29,7 @@ public class ReverseChallenge implements Challenge<String>{
 
 	public void challenge(String input) {
 		String inputReverse = "";
-		for(int i = input.length()-1 ; i >= 0 ; i --) {
+		for(int i = input.length()-1 ; i >= 0 ; i--) {
 			inputReverse += input.charAt(i);
 		}
 		if(inputReverse.substring(0,1).equals("x"))
@@ -34,4 +37,5 @@ public class ReverseChallenge implements Challenge<String>{
 		else
 			throw new RuntimeException();
 	}
+
 }

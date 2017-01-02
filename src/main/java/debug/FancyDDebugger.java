@@ -68,14 +68,14 @@ public class FancyDDebugger implements DDebugger<String>{
         }
 
 
-        printGoodChain(goodChain);
-        printBadChain(badChain);
+        //printGoodChain(goodChain);
+        //printBadChain(badChain);
 
         Ddmin ddmin = new Ddmin(goodInput, modifiedChallenge);
 
         List<DebugChainElement> diffs = ddmin.getDiffs(goodChain.getDebugChain(), badChain.getDebugChain());
 
-        printdiffs(diffs);
+        //printdiffs(diffs);
 
 
         System.out.println("\n ******* CAUSE EFFECT CHAIN :  ******");
