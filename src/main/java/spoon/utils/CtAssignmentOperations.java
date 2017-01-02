@@ -12,7 +12,7 @@ import spoon.reflect.visitor.filter.TypeFilter;
  * Created by FlorianDoublet and wadinj on 10/12/2016.
  * Class used to capture all the assignment operation in our code.
  */
-public class CtAssignmentOperations {
+public class CtAssignmentOperations implements CtOperationItf {
     private CtMethod method;
     private Launcher launcher;
 

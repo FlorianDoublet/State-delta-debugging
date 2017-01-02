@@ -11,7 +11,7 @@ import spoon.reflect.visitor.filter.TypeFilter;
  * Created by FlorianDoublet on 10/12/2016.
  * NOT USED ANYMORE (We probably gonna delete it latter)
  */
-public class CtVariableReadOperations {
+public class CtVariableReadOperations implements CtOperationItf {
 
 
     private CtMethod method;

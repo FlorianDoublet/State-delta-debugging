@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * Created by FlorianDoublet on 13/12/2016.
  * Class used to capture all the variable operation in our code.
  */
-public class CtVariableOperations {
+public class CtVariableOperations implements CtOperationItf {
 
 
     private CtMethod method;

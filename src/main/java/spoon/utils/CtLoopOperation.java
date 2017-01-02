@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * Created by Florian on 13/12/2016.
  * Class used to capture all the loop operation in our code.
  */
-public class CtLoopOperation {
+public class CtLoopOperation implements CtOperationItf{
 
     private CtMethod method;
     private Launcher launcher;
