@@ -44,7 +44,7 @@ public class MarkupChallenge implements Challenge<String>{
 	public void challenge(String input) {
         Boolean tag = false;
         Boolean quote = false;
-        List<String> out = new ArrayList<>();
+        String out = "";
         for(Character c : input.toCharArray()){
             if(c == '<' && !quote){
                 tag = true;
@@ -53,7 +53,7 @@ public class MarkupChallenge implements Challenge<String>{
             } else if(c == '\"' || (c == '\'' && tag)){
                 quote = !quote;
             } else if (!tag){
-                out.add(c.toString());
+                out += c;
             }
         }
 

@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.ArrayList;
+
 /**
  * Created by FlorianDoublet on 13/12/16.
  * This class modelise the Status of a captured variable
@@ -19,21 +21,33 @@ public class StateOfVar {
 
     public StateOfVar(int line, Object newVal, String iteration){
         this.line = line;
-        this.newVal = newVal;
+        if(newVal instanceof ArrayList){
+            this.newVal = new ArrayList<>((ArrayList)newVal);
+        } else {
+            this.newVal = newVal;
+        }
         this.iteration = iteration;
     }
 
     public StateOfVar(int line, Object oldVal, Object newVal, String iteration){
         this.line = line;
         this.oldVal = oldVal;
-        this.newVal = newVal;
+        if(newVal instanceof ArrayList){
+            this.newVal = new ArrayList<>((ArrayList)newVal);
+        } else {
+            this.newVal = newVal;
+        }
         this.iteration = iteration;
     }
 
     public StateOfVar(int line, Object oldVal, Object newVal, String binaryOperator, String iteration){
         this.line = line;
         this.oldVal = oldVal;
-        this.newVal = newVal;
+        if(newVal instanceof ArrayList){
+            this.newVal = new ArrayList<>((ArrayList)newVal);
+        } else {
+            this.newVal = newVal;
+        }
         this.binaryOperator = binaryOperator;
         this.iteration = iteration;
     }
