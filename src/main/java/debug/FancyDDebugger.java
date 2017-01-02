@@ -81,7 +81,7 @@ public class FancyDDebugger implements DDebugger<String>{
         System.out.println("\n ******* CAUSE EFFECT CHAIN :  ******");
         List<DebugChainElement> causeEffectChain =  ddmin.process(diffs);
         for(DebugChainElement chainElement : causeEffectChain){
-            System.out.println("line " + chainElement.getLine() + " the var " + chainElement.getVariable() + " " + chainElement.getDescription());
+            System.out.println("line " + chainElement.getLine() + " the var " + chainElement.getVariable() + " " + chainElement.getDescription().replaceAll("\n", "\\\\n"));
         }
 
         return null;
