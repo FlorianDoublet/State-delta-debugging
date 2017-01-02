@@ -1,5 +1,5 @@
-import fr.univ_lille1.m2iagl.dd.Challenge;
 
+import fr.univ_lille1.m2iagl.dd.Challenge;
 import java.util.Arrays;
 import java.util.List;
 
@@ -55,7 +55,7 @@ public class MarkupChallenge implements Challenge<String>{
             }
         }
         assert !out.contains("<");
-		
+
 	}
 
 }
