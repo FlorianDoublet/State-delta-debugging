@@ -3,6 +3,7 @@ package debug;
 import fr.univ_lille1.m2iagl.dd.Challenge;
 import spoon.Launcher;
 import spoon.utils.ChallengeProcessor;
+import utils.DebugManipulation;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -18,12 +19,13 @@ public class Main {
         List<String> fileNames = getAllFilesNameFromRessourceDirectory();
 
         for(String fileName : fileNames){
+            DebugManipulation.resetAll();
+            FancyDDebugger.runtimeCauseEffectChain = new DebugCauseEffectChain();
             Challenge modifiedChallenge = createModifiedChallenge(fileName);
             System.out.println("\n ************ " + fileName + " CHALLENGE ! ************\n");
             FancyDDebugger debugger = new FancyDDebugger();
             debugger.debug(modifiedChallenge);
         }
-
 
     }
 

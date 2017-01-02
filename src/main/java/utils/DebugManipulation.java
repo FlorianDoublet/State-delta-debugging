@@ -15,6 +15,13 @@ public class DebugManipulation {
     public static boolean waitForNewValue = false;
     public static LinkedHashMap<Integer, Integer> iterations = new LinkedHashMap<>();
 
+    public static void resetAll(){
+        capturedVars = new LinkedHashMap<>();
+        capturedVarsToReplaceValues = new LinkedHashMap<>();
+        waitForNewValue = false;
+        iterations = new LinkedHashMap<>();
+    }
+
     /**
      * Capture the value of the CtVariableOperation and return the input
      * this method need to surround the input we want to capture

@@ -1,8 +1,7 @@
 package debug;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
+
 import fr.univ_lille1.m2iagl.dd.Challenge;
 import utils.CapturedVar;
 import utils.DebugManipulation;
@@ -55,11 +54,11 @@ public class Ddmin {
 		List<DebugChainElement> causes = new ArrayList<>();
 
 		List<DebugChainElement> diffsToTest = new ArrayList<>(diffs);
-		List<List<DebugChainElement>> powerSetOfDiffsToTest = powerset(diffsToTest);
+		List<ArrayList<DebugChainElement>> powerSetOfDiffsToTest = powerset(diffsToTest);
 		//remove the empty set
 		powerSetOfDiffsToTest.remove(0);
 
-		List<List<DebugChainElement>> crashResponsibleDiffs = smallestCrashDiffs(powerSetOfDiffsToTest);
+		List<ArrayList<DebugChainElement>> crashResponsibleDiffs = smallestCrashDiffs(powerSetOfDiffsToTest);
 
 		for(List<DebugChainElement> diffsCrash : crashResponsibleDiffs){
 			for(DebugChainElement diff : diffsCrash){
@@ -71,10 +70,16 @@ public class Ddmin {
 		return causes;
 	}
 
-	public List<List<DebugChainElement>> smallestCrashDiffs(List<List<DebugChainElement>> diffsCombinations){
-		List<List<DebugChainElement>> smallestDiffs = new ArrayList<>();
+	public List<ArrayList<DebugChainElement>> smallestCrashDiffs(List<ArrayList<DebugChainElement>> diffsCombinations){
+		List<ArrayList<DebugChainElement>> smallestDiffs = new ArrayList<>();
 		int smallestDiffsSize = Integer.MAX_VALUE;
-		for(List<DebugChainElement> diffs : diffsCombinations){
+		Collections.sort(diffsCombinations, new Comparator<ArrayList>(){
+			public int compare(ArrayList a1, ArrayList a2) {
+				return a2.size() - a1.size(); // assumes you want smallest to biggest
+			}
+		});
+
+		for(ArrayList<DebugChainElement> diffs : diffsCombinations){
 			if(diffs.size() > smallestDiffsSize){
 				break;
 			}else {
@@ -89,20 +94,21 @@ public class Ddmin {
 	}
 
 
-	public static List<List<DebugChainElement>> powerset(List<DebugChainElement> list) {
-		List<List<DebugChainElement>> ps = new ArrayList<List<DebugChainElement>>();
+
+	public static List<ArrayList<DebugChainElement>> powerset(List<DebugChainElement> list) {
+		List<ArrayList<DebugChainElement>> ps = new ArrayList<ArrayList<DebugChainElement>>();
 		ps.add(new ArrayList<DebugChainElement>());   // add the empty set
 
 		// for every item in the original list
 		for (DebugChainElement item : list) {
-			List<List<DebugChainElement>> newPs = new ArrayList<List<DebugChainElement>>();
+			List<ArrayList<DebugChainElement>> newPs = new ArrayList<ArrayList<DebugChainElement>>();
 
-			for (List<DebugChainElement> subset : ps) {
+			for (ArrayList<DebugChainElement> subset : ps) {
 				// copy all of the current powerset's subsets
 				newPs.add(subset);
 
 				// plus the subsets appended with the current item
-				List<DebugChainElement> newSubset = new ArrayList<DebugChainElement>(subset);
+				ArrayList<DebugChainElement> newSubset = new ArrayList<DebugChainElement>(subset);
 				newSubset.add(item);
 				newPs.add(newSubset);
 			}
@@ -121,12 +127,9 @@ public class Ddmin {
 			this.challenge.challenge(this.input);
 			return true;
 		} catch (Exception e) {
-			if (e instanceof RuntimeException) {
-				//we only considere runtimeException as a failure
 				return false;
-			} else {
-				return true;
-			}
+		} catch (AssertionError e){
+			return false;
 		}
 	}
 
