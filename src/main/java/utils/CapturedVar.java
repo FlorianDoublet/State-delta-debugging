@@ -1,15 +1,11 @@
 package utils;
 
-import com.sun.xml.internal.fastinfoset.util.StringArray;
-import debug.Ddmin;
-import debug.DebugChainElement;
-import debug.FancyDDebugger;
-import fr.univ_lille1.m2iagl.dd.ChainElement;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import debug.DebugChainElement;
+import debug.FancyDDebugger;
 
 /**
  * Created by FlorianDoublet on 13/12/2016.

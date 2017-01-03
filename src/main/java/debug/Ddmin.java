@@ -1,6 +1,10 @@
 package debug;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import fr.univ_lille1.m2iagl.dd.Challenge;
 import utils.CapturedVar;

@@ -1,7 +1,6 @@
 package debug;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +8,6 @@ import java.util.Map;
 import fr.univ_lille1.m2iagl.dd.ChainElement;
 import fr.univ_lille1.m2iagl.dd.Challenge;
 import fr.univ_lille1.m2iagl.dd.DDebugger;
-import spoon.Launcher;
-import spoon.utils.ChallengeProcessor;
 import utils.CapturedVar;
 import utils.DebugManipulation;
 

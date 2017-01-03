@@ -17,7 +17,7 @@ public class WhereIsMyCatChallenge implements Challenge<String>{
 	}
 
 	public List<String> getInputs() {
-		return Arrays.asList("Bureau,Chambre,Salle � manger,Cuisine", "Jardin,Garage,Salon,Veranda");
+		return Arrays.asList("Bureau,Chambre,Salle a manger,Cuisine", "Jardin,Garage,Salon,Veranda");
 	}
 
 

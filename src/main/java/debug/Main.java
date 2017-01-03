@@ -1,14 +1,13 @@
 package debug;
 
-import challenge.CaesarCipherChallenge;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.univ_lille1.m2iagl.dd.Challenge;
 import spoon.Launcher;
 import spoon.utils.ChallengeProcessor;
 import utils.DebugManipulation;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
