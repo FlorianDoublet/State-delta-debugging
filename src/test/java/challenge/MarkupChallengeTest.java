@@ -29,7 +29,7 @@ public class MarkupChallengeTest {
 	@Test
 	public void testGoodChain() {
 		try{
-		c.challenge(c.getInputs().get(1));
+			c.challenge(c.getInputs().get(1));
 		} catch (RuntimeException e){
 			Assert.fail();
 		}

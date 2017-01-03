@@ -54,7 +54,7 @@ public class CtAssignmentOperations implements CtOperationItf {
     }
 
     //Transform a binaryOperator to a String
-    private String binaryOperatorToString(BinaryOperatorKind operator) {
+    public String binaryOperatorToString(BinaryOperatorKind operator) {
         switch(operator) {
             case PLUS :
                 return "+";
