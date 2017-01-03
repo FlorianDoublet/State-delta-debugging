@@ -1,3 +1,4 @@
+package challenge;
 import fr.univ_lille1.m2iagl.dd.Challenge;
 import java.util.Arrays;
 import java.util.List;
@@ -54,7 +55,7 @@ public class MarkupChallenge implements Challenge<String>{
             }
         }
         if(!out.contains("<"))
-        	return;
+        	System.out.println("OKOK");
         else
         	throw new RuntimeException();
 

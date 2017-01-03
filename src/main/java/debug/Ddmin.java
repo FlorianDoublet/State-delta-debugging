@@ -138,7 +138,7 @@ public class Ddmin {
 		DebugManipulation.capturedVarsToReplaceValues = new LinkedHashMap<>();
 
 		for (DebugChainElement diff : diffs) {
-			CapturedVar diffToApply = new CapturedVar(diff.line, diff.value, diff.varName, diff.value.getClass(), diff.iteration);
+			CapturedVar diffToApply = new CapturedVar(diff.line, diff.value, diff.varName, diff.iteration);
 			//add to the linkedList
 			DebugManipulation.capturedVarsToReplaceValues.put(diff.varName, diffToApply);
 		}

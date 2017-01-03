@@ -1,19 +1,13 @@
 package spoon.utils;
 
-import debug.FancyDDebugger;
 import fr.univ_lille1.m2iagl.dd.Challenge;
 import org.mdkt.compiler.InMemoryJavaCompiler;
 import spoon.Launcher;
-import spoon.processing.AbstractProcessor;
-import spoon.processing.ProcessingManager;
 import spoon.reflect.code.*;
 import spoon.reflect.declaration.CtClass;
 import spoon.reflect.declaration.CtMethod;
-import spoon.reflect.factory.Factory;
-import spoon.reflect.visitor.CtScanner;
 import spoon.reflect.visitor.filter.NameFilter;
 import spoon.reflect.visitor.filter.TypeFilter;
-import spoon.support.QueueProcessingManager;
 
 /**
  * Created by FlorianDoublet on 10/12/2016.
@@ -56,6 +50,7 @@ public class ChallengeProcessor {
                 new CtAssignmentOperations(method, launcher);
                 new CtVariableOperations(method, launcher);
                 new CtUnaryOperatorOperations(method, launcher);
+                new CtInvocationOperations(method, launcher);
                 new CtVariableReadOperations(method, launcher);
                 new CtLoopOperation(method, launcher);
                 //System.out.println(method.getBody().toString());

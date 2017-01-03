@@ -17,16 +17,14 @@ public class CapturedVar {
 
 
 	public String name;
-	public Class varClass;
 	public Object lastVal;
 	public Boolean wantToTransformInChainElement = false;
 	public List<StateOfVar> states = new ArrayList<>();
 
 
 
-	public CapturedVar(int line, Object val, String name, Class varClass, String iteration) {
+	public CapturedVar(int line, Object val, String name, String iteration) {
 		this.name = name;
-		this.varClass = varClass;
 		this.lastVal = val;
 		StateOfVar stateOfVar = new StateOfVar(line, val, iteration);
 		addState(stateOfVar);
@@ -36,7 +34,6 @@ public class CapturedVar {
 	//hope it will be temporary
 	public CapturedVar(int line, Object val, String name, Class varClass, String iteration, Boolean wantToTransformInChainElement) {
 		this.name = name;
-		this.varClass = varClass;
 		this.lastVal = val;
 		StateOfVar stateOfVar = new StateOfVar(line, val, iteration);
 		this.wantToTransformInChainElement = wantToTransformInChainElement;
@@ -65,10 +62,14 @@ public class CapturedVar {
 	protected DebugChainElement buildChainElement(StateOfVar state){
 		int line = state.line;
 		String description = "";
+		Object stateNewVal = state.newVal;
+		if(state.newVal == null){
+			stateNewVal = new String("null");
+		}
 		if(state.oldVal == null){
-			description += "was initialized to " + state.newVal.toString();
+			description += "was initialized to " + stateNewVal.toString();
 		} else {
-			description += " became " + state.newVal.toString();
+			description += " became " + stateNewVal.toString();
 		}
 		return new DebugChainElement(line, name, state.newVal, description, state.iteration);
 	}
@@ -82,6 +83,10 @@ public class CapturedVar {
 		states.get(states.size() - 1).completeState = completeState;
 		String description = " became " + completeState.toString();
 		FancyDDebugger.runtimeCauseEffectChain.updateLastCompleteStateValue(completeState, description);
+	}
+
+	public void updateLastDescription(String description){
+		FancyDDebugger.runtimeCauseEffectChain.updateLastDescription(description);
 	}
 
 	//Used to transform this object in a Hashable one, but only based on the name of the Var
@@ -114,9 +119,4 @@ public class CapturedVar {
 		}
 	}
 
-	/*@Override
-	public String toString() {
-		return "CapturedVar [name=" + name + ", varClass=" + varClass + ", lastVal=" + lastVal + ", states=" + states
-				+ ", chainElementList=" + chainElementList + "]";
-	}*/
 }

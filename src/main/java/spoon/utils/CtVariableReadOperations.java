@@ -1,17 +1,17 @@
 package spoon.utils;
 
 import spoon.Launcher;
-import spoon.reflect.code.CtAssignment;
-import spoon.reflect.code.CtCodeSnippetExpression;
-import spoon.reflect.code.CtVariableRead;
+import spoon.reflect.code.*;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.visitor.filter.TypeFilter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by FlorianDoublet on 10/12/2016.
- * NOT USED ANYMORE (We probably gonna delete it latter)
  */
-public class CtVariableReadOperations {
+public class CtVariableReadOperations implements CtOperationItf {
 
 
     private CtMethod method;
@@ -35,6 +35,8 @@ public class CtVariableReadOperations {
             //Apply it
             final CtCodeSnippetExpression statementMethod = launcher.getFactory().Code().createCodeSnippetExpression(surrounded);
             variableRead.replace(statementMethod);
+
+
 
 
         }

@@ -10,7 +10,7 @@ import spoon.reflect.visitor.filter.TypeFilter;
 /**
  * Created by flori on 27/12/2016.
  */
-public class CtUnaryOperatorOperations {
+public class CtUnaryOperatorOperations implements CtOperationItf {
     private CtMethod method;
     private Launcher launcher;
 
