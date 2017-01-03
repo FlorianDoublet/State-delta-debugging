@@ -37,29 +37,25 @@ public class FancyDDebugger implements DDebugger<String>{
         //Then for each of our challengeInput tun the modifiedChallenge with it
         for (Object input: modifiedChallenge.getInputs()){
 
-            System.out.println("Input : " + input + " : ");
+            System.out.print("Input : " + input + " : ");
             try{
                 //Run the challenge
                 modifiedChallenge.challenge(input);
+                System.out.println(" --> PASS");
                 //Capture the static capturedVars fill by DebugManipulation for the challenge we just run
                 listMapCapturedVar.add(DebugManipulation.capturedVars);
                 goodInput = input;
 
                 goodChain.ourCauseEffectChain = new ArrayList<>(runtimeCauseEffectChain.ourCauseEffectChain);
 
-            } catch (AssertionError e){
+            } catch (AssertionError| Exception e){
+                System.out.println(" --> FAIL");
                 //same
                 //If we are in the catch it mean that the challenge fail
                 listMapCapturedVar.add(DebugManipulation.capturedVars);
 
                 badChain.ourCauseEffectChain = new ArrayList<>(runtimeCauseEffectChain.ourCauseEffectChain);
 
-            } catch (Exception e){
-                //same
-                //If we are in the catch it mean that the challenge fail
-                listMapCapturedVar.add(DebugManipulation.capturedVars);
-
-                badChain.ourCauseEffectChain = new ArrayList<>(runtimeCauseEffectChain.ourCauseEffectChain);
             }
             //We reset the static map contained in DebugManipulation, for the next run of challenge
             DebugManipulation.capturedVars = new LinkedHashMap<>();
