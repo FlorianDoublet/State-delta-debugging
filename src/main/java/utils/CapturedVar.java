@@ -1,11 +1,14 @@
 package utils;
 
+import com.sun.xml.internal.fastinfoset.util.StringArray;
 import debug.Ddmin;
 import debug.DebugChainElement;
 import debug.FancyDDebugger;
 import fr.univ_lille1.m2iagl.dd.ChainElement;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -63,13 +66,19 @@ public class CapturedVar {
 		int line = state.line;
 		String description = "";
 		Object stateNewVal = state.newVal;
+		String stateNewValStr = "";
+		if(stateNewVal instanceof String[]){
+			stateNewValStr = Arrays.toString((String[])stateNewVal);
+		} else {
+			stateNewValStr = stateNewVal.toString();
+		}
 		if(state.newVal == null){
 			stateNewVal = new String("null");
 		}
 		if(state.oldVal == null){
-			description += "was initialized to " + stateNewVal.toString();
+			description += "was initialized to " + stateNewValStr;
 		} else {
-			description += " became " + stateNewVal.toString();
+			description += " became " + stateNewValStr;
 		}
 		return new DebugChainElement(line, name, state.newVal, description, state.iteration);
 	}
@@ -81,7 +90,13 @@ public class CapturedVar {
 	 */
 	public void updateLastCompleteStateValue(Object completeState){
 		states.get(states.size() - 1).completeState = completeState;
-		String description = " became " + completeState.toString();
+		String stateNewValStr = "";
+		if(completeState instanceof String[]){
+			stateNewValStr = Arrays.toString((String[])completeState);
+		} else {
+			stateNewValStr = completeState.toString();
+		}
+		String description = " became " + stateNewValStr;
 		FancyDDebugger.runtimeCauseEffectChain.updateLastCompleteStateValue(completeState, description);
 	}
 

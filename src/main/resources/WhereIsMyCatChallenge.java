@@ -15,15 +15,24 @@ public class WhereIsMyCatChallenge implements Challenge<String>{
     }
 
     public List<String> getInputs() {
-        return Arrays.asList("Bureau,Chambre,Salle à manger,Cuisine", "Jardin,Garage,Salon,Veranda");
+        return Arrays.asList("Bureau,Chambre,Salle ï¿½ manger,Cuisine", "Jardin,Garage,Salon,Veranda");
     }
 
 
     /**
      * Where is my cat ?
      */
-	public Object doIt(String s) {
-		return null;
+	public Object doIt(String input) {
+		List<Boolean> result = new ArrayList<Boolean>();
+		List<String> pieces = Arrays.asList(input.split(","));
+		for(String piece : pieces) {
+			if(piece.equals("Garage")) {
+				result.add(true);
+			} else {
+				result.add(false);
+			}
+		}
+		return result;
 	}
 
 	public void challenge(String input) {

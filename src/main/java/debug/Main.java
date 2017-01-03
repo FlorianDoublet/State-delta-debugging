@@ -1,5 +1,6 @@
 package debug;
 
+import challenge.CaesarCipherChallenge;
 import fr.univ_lille1.m2iagl.dd.Challenge;
 import spoon.Launcher;
 import spoon.utils.ChallengeProcessor;
@@ -26,7 +27,6 @@ public class Main {
             FancyDDebugger debugger = new FancyDDebugger();
             debugger.debug(modifiedChallenge);
         }
-
     }
 
     /**

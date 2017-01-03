@@ -78,6 +78,7 @@ public class Ddmin {
 				return a2.size() - a1.size(); // assumes you want smallest to biggest
 			}
 		});
+		Collections.reverse(diffsCombinations);
 
 		for(ArrayList<DebugChainElement> diffs : diffsCombinations){
 			if(diffs.size() > smallestDiffsSize){

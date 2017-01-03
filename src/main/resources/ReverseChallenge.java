@@ -7,7 +7,7 @@ import java.util.List;
 
 
 /**
- * Created by FlorianDoublet on 03/12/2016.
+ * Created by wadinj on 03/12/2016.
  * .Java file that will be transformed by our code !
  */
 public class ReverseChallenge implements Challenge<String>{
@@ -23,8 +23,12 @@ public class ReverseChallenge implements Challenge<String>{
     /**
      * Reverse string and check if last is equals to x
      */
-	public Object doIt(String s) {
-		return null;
+	public Object doIt(String input) {
+		String inputReverse = "";
+		for(int i = input.length()-1 ; i >= 0 ; i--) {
+			inputReverse += input.charAt(i);
+		}
+		return inputReverse;
 	}
 
 	public void challenge(String input) {
