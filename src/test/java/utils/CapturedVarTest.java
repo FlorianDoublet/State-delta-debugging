@@ -15,7 +15,7 @@ public class CapturedVarTest {
 	
 	@Before
 	public void setUp() throws Exception {
-		var = new CapturedVar(5, false, "test", "test".getClass(), "iteration( 1 )");
+		var = new CapturedVar(5, false, "test", "test".getClass(), "iteration( 1 )", true);
 	}
 
 	@Test
@@ -54,19 +54,19 @@ public class CapturedVarTest {
 	
 	@Test
 	public void testEqualsOnSpecificLine(){
-		CapturedVar var2 = new CapturedVar(5, false, "test", "test".getClass(), "iteration( 1 )");
+		CapturedVar var2 = new CapturedVar(5, false, "test", "test".getClass(), "iteration( 1 )", true);
 		assertFalse(var.equalsOnSpecificLine(var2, 5));
 	}
 	
 	@Test
 	public void testEquals(){
-		CapturedVar var2 = new CapturedVar(5, false, "test", "test".getClass(), "iteration( 1 )");
+		CapturedVar var2 = new CapturedVar(5, false, "test", "test".getClass(), "iteration( 1 )", true);
 		assertTrue(var.equals(var2));
 	}
 	
 	@Test
 	public void testNotEquals(){
-		CapturedVar var2 = new CapturedVar(5, false, "not test", "test".getClass(), "iteration( 1 )");
+		CapturedVar var2 = new CapturedVar(5, false, "not test", "test".getClass(), "iteration( 1 )", true);
 		assertFalse(var.equals(var2));
 	}
 	

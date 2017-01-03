@@ -22,21 +22,7 @@ public class MarkupChallenge implements Challenge<String>{
      * Remove Html Markup method
      */
 	public Object doIt(String s) {
-		Boolean tag = false;
-        Boolean quote = false;
-        String out = "";
-        for(Character c : s.toCharArray()){
-            if(c == '<' && !quote){
-                tag = true;
-            } else if (c == '>' && !quote){
-                tag = false;
-            } else if(c == '\"' || (c == '\'' && tag)){
-                quote = !quote;
-            } else if (!tag){
-                out += c;
-            }
-        }
-        return out;
+		return null;
 	}
 
 	public void challenge(String input) {
