@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by FlorianDoublet on 13/12/16.
@@ -23,7 +24,9 @@ public class StateOfVar {
         this.line = line;
         if(newVal instanceof ArrayList){
             this.newVal = new ArrayList<>((ArrayList)newVal);
-        } else {
+        } else if (newVal instanceof HashMap) {
+            this.newVal = new HashMap((HashMap)newVal);
+        }else{
             this.newVal = newVal;
         }
         this.iteration = iteration;
@@ -34,7 +37,9 @@ public class StateOfVar {
         this.oldVal = oldVal;
         if(newVal instanceof ArrayList){
             this.newVal = new ArrayList<>((ArrayList)newVal);
-        } else {
+        } else if (newVal instanceof HashMap) {
+            this.newVal = new HashMap((HashMap)newVal);
+        }else{
             this.newVal = newVal;
         }
         this.iteration = iteration;
@@ -45,7 +50,9 @@ public class StateOfVar {
         this.oldVal = oldVal;
         if(newVal instanceof ArrayList){
             this.newVal = new ArrayList<>((ArrayList)newVal);
-        } else {
+        } else if (newVal instanceof HashMap) {
+            this.newVal = new HashMap((HashMap)newVal);
+        }else{
             this.newVal = newVal;
         }
         this.binaryOperator = binaryOperator;

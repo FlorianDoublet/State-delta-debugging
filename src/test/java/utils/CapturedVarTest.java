@@ -27,17 +27,17 @@ public class CapturedVarTest {
 	
 	@Test
 	public void testBuildChainElementListWithNewState() {
-		var.addState(5, "new Test", "iteration( 1 )");
+		var.addState(5, "new StringToIntMapChallenge", "iteration( 1 )");
 		DebugChainElement l1  = var.buildChainElement(var.states.get(1));
-		DebugChainElement d2 = new DebugChainElement(5, "test", "this is a test", " became new Test", "iteration ( 1 )");
+		DebugChainElement d2 = new DebugChainElement(5, "test", "this is a test", " became new StringToIntMapChallenge", "iteration ( 1 )");
 		assertTrue(l1.description.equals(d2.description));
 	}
 	
 	@Test
 	public void testBuildChainElementListWithNewStateBynaryOperator() {
-		var.addState(5, "new Test", "", "iteration( 1 )");
+		var.addState(5, "new StringToIntMapChallenge", "", "iteration( 1 )");
 		DebugChainElement l1  = var.buildChainElement(var.states.get(1));
-		DebugChainElement d2 = new DebugChainElement(5, "test", "this is a test"," became new Test", "iteration ( 1 )");
+		DebugChainElement d2 = new DebugChainElement(5, "test", "this is a test"," became new StringToIntMapChallenge", "iteration ( 1 )");
 		assertTrue(l1.description.equals(d2.description));
 	}
 
